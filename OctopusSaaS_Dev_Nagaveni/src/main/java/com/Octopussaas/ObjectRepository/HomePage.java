@@ -19,7 +19,7 @@ public class HomePage {
 		PageFactory.initElements(driver, this);
 		
 	}
-	@FindBy(xpath = "//h6[contains(text(),'Add New')]")
+	@FindBy(xpath = "//h6[contains(text(),'Add New')]/..")
 	private WebElement Addnewdd;
 	@FindBy(xpath = "//li[contains(text(),'Generator')]")
 	private WebElement Gen;
@@ -33,6 +33,8 @@ public class HomePage {
 	private WebElement billingSettings;
 	
 
+	
+	
 	public WebElement getTransporterSettings() {
 		return transporterSettings;
 	}

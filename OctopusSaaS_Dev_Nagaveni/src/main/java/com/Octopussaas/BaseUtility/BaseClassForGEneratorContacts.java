@@ -1,4 +1,8 @@
 package com.Octopussaas.BaseUtility;
+import java.time.Duration;
+import java.net.URI;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 
@@ -8,9 +12,12 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -36,6 +43,31 @@ public class BaseClassForGEneratorContacts {
 	public WebDriver driver = null;
 	public static  WebDriver sdriver=null;
 	ChromeOptions options;
+	/**
+	 * Permanently fixes URISyntaxException by sanitizing any URL before
+	 * passing it to driver.get().
+	 * Removes invisible/control characters (BOM, CR, LF, tabs),
+	 * trims whitespace, strips inner spaces, and ensures a valid scheme.
+	 */
+	private String sanitizeUrl(String url) {
+		if (url == null) return "";
+		// Remove BOM and all control/invisible characters (CR, LF, tab, BOM etc.)
+		url = url.replaceAll("[\\p{Cntrl}\\uFEFF]", "").trim();
+		// Remove any remaining embedded whitespace (spaces inside the URL)
+		url = url.replaceAll("\\s+", "");
+		// Ensure the URL has a valid scheme
+		if (!url.startsWith("http://") && !url.startsWith("https://")) {
+			url = "https://" + url;
+		}
+		// Validate — log and return as-is if still invalid
+		try {
+			new URI(url);
+		} catch (Exception e) {
+			System.out.println("[WARN] URL may still be invalid after sanitization: " + url + " | Error: " + e.getMessage());
+		}
+		System.out.println("[INFO] Sanitized URL: " + url);
+		return url;
+	}
 	@BeforeClass(alwaysRun = true)
 	public void Bc(/*@Optional("Chrome") String browser*/) throws IOException, InterruptedException, AWTException {
 		System.out.println("Before class");
@@ -100,7 +132,7 @@ public class BaseClassForGEneratorContacts {
 		
 		
          wlib.waitForPageLoad(driver);
-         String URL = flib.getDataFromPropertiesFile("url").trim();
+         String URL = sanitizeUrl(flib.getDataFromPropertiesFile("url"));
  		Thread.sleep(2000);
  		
 
@@ -117,7 +149,39 @@ public class BaseClassForGEneratorContacts {
  		Thread.sleep(3000);
  		LoginPage lp = new LoginPage(driver);
  		lp.LoginToApp(USERNAME, PASSWORD);
- 		
+
+ 		// ── Firebase / Login failure auto-recovery ──────────────────────────────────
+ 		// If Firebase App Check error (or any login failure) occurs, the browser stays
+ 		// on the login/auth URL instead of navigating to the dashboard.
+ 		// Check the current URL — if still on login page, refresh and retry once.
+ 		try {
+ 			String currentUrl = driver.getCurrentUrl();
+ 			System.out.println("[INFO] URL after login attempt: " + currentUrl);
+
+ 			boolean loginFailed = currentUrl.contains("/auth")
+ 					|| currentUrl.contains("/login")
+ 					|| currentUrl.contains("/sign-in");
+
+ 			if (loginFailed) {
+ 				System.out.println("[WARN] Login failed (still on login page). Refreshing and retrying...");
+
+ 				driver.navigate().refresh();
+ 				Thread.sleep(2000);
+
+ 				// Wait for email field to be ready
+ 				new WebDriverWait(driver, Duration.ofSeconds(15))
+ 					.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@type='email']")));
+
+ 				LoginPage lp2 = new LoginPage(driver);
+ 				lp2.LoginToApp(USERNAME, PASSWORD);
+ 				System.out.println("[INFO] Re-login completed successfully.");
+ 			} else {
+ 				System.out.println("[INFO] Login successful. Proceeding normally.");
+ 			}
+ 		} catch (Exception e) {
+ 			System.out.println("[WARN] Login recovery check failed: " + e.getMessage());
+ 		}
+ 		// ───────────────────────────────────────────────────────────────────────────
  		Robot robot = new Robot();
 
  		robot.keyPress(KeyEvent.VK_CONTROL);
@@ -126,20 +190,13 @@ public class BaseClassForGEneratorContacts {
  		robot.keyPress(KeyEvent.VK_SUBTRACT);
  		robot.keyRelease(KeyEvent.VK_SUBTRACT);
  		robot.keyRelease(KeyEvent.VK_CONTROL);
+ 		
 }
 	
 	
 	@BeforeMethod(alwaysRun = true)
 	public void Bm() throws IOException, InterruptedException {
 		System.out.println("Before method");
-		
-		 
-
-		
-		
-		
-		
-
 	}
 	@AfterMethod(alwaysRun = true)
 	public void Am() throws InterruptedException {

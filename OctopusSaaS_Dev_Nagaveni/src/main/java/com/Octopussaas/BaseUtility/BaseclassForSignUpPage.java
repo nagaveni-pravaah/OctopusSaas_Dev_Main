@@ -103,7 +103,7 @@ public class BaseclassForSignUpPage {
 		System.out.println("After class");
 		Thread.sleep(2000);
 
-		driver.quit();
+		/*driver.quit();*/
 		Thread.sleep(2000);
 
 	}
