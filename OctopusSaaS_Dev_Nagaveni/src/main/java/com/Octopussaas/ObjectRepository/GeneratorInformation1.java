@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.devtools.v138.network.model.SubresourceWebBundleMetadataReceived;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -138,8 +139,8 @@ public class GeneratorInformation1 {
 	private WebElement skillednursingType;
 	@FindBy (xpath = "//li[@role='option']//span[contains (text(),'Non-Medical Professional')]")
 	private WebElement nonmedicalType;
-	@FindBy(xpath = "//div[contains(@class,'cursor-pointer') and contains(@class,'border-2')]")
-	private WebElement checkBox;
+	@FindBy(xpath = "(//div[contains(@class,'cursor-pointer') and contains(@class,'border-2')])[1]")
+	public WebElement checkBox;
 	@FindBy (xpath = "//input[@id='serviceAddress-email']")
 	private WebElement serviceEmail;
 	@FindBy (xpath = "//input[@id='serviceAddress-phone']")
@@ -155,7 +156,7 @@ public class GeneratorInformation1 {
 	@FindBy (xpath = "//input[@id='serviceAddress-attention']")
 	private WebElement serviceAttention;
 	@FindBy(xpath = "//span[contains(text(),'Contracted')]")
-	private WebElement contracedsc;
+	public WebElement contracedsc;
 	@FindBy (xpath = "//input[@id='serviceAddress-city']")
 	private WebElement serviceCity;
 	@FindBy (xpath = "//input[@id='serviceAddress-state']")
@@ -284,11 +285,21 @@ public class GeneratorInformation1 {
 	private WebElement generatorbilling;
 	@FindBy (xpath = "//a[contains (text(),'Generator Information')]")
 	private WebElement generatorInformation;
+	@FindBy (xpath = "//button[contains (text(),'Yes')]")
+	public WebElement yesButton;
+	@FindBy (xpath = "(//button[contains (text(),'✕')])[5]")
+	private WebElement cancelBtn;
+	@FindBy (xpath = "//button[contains (text(),'Terminate The Contract')]")
+	public WebElement terminateContact;
+	@FindBy (xpath = "//button[contains (text(),'Keep The Contract')]")
+	private WebElement keepthecontract;
+	@FindBy (xpath = "//li[@role='option']//div[contains (text(),'NIGO (Not In Good Order)')]")
+	private WebElement nigostatus;
+	@FindBy (xpath = "//button[contains (text(),'No')]")
+	private WebElement nobutton;
 	
-	
-	
+
 	//UPDATE ADDRESS
-	
 	@FindBy (xpath = "(//button[contains (text(),'Update Address')])[1]")
 	private WebElement updateAddressButton;
 	@FindBy (xpath = "//div[@class='modal-box min-w-[50vw] w-[50vw] relative']")
@@ -319,9 +330,52 @@ public class GeneratorInformation1 {
 	private WebElement updateAddressmodalButton;
     @FindBy (xpath = "//button[contains (text(),'Save New Address')]")
 	private WebElement savenewAddressbutton;
+	@FindBy (xpath = "(//button[contains (text(),'Cancel')])[1]")
+	private WebElement updatecancelButton;
+	@FindBy (xpath = "(//div[@class='modal-box min-w-[40vw] w-[40vw] relative'])[1]")
+	private WebElement savenewAddressmodal;
+	@FindBy (xpath = "(//button[contains (text(),'Cancel')])[2]")
+	private WebElement cancelButton1;
 	
 	
+	public WebElement getNobutton() {
+		return nobutton;
+	}
 	
+	public WebElement getNigostatus() {
+		return nigostatus;
+	}
+	
+	
+	public WebElement getKeepthecontract() {
+		return keepthecontract;
+	}
+	
+	
+	public WebElement getTerminateContact() {
+		return terminateContact;
+	}
+	public WebElement getCancelBtn() {
+		return cancelBtn;
+	}
+
+	public WebElement getYesButton() {
+		return yesButton;
+	}
+	
+	
+	public WebElement getCancelButton1() {
+		return cancelButton1;
+	}
+
+	public WebElement getSavenewAddressmodal() {
+		return savenewAddressmodal;
+	}
+
+	public WebElement getUpdatecancelButton() {
+		return updatecancelButton;
+	}
+
 	public WebElement getSavenewAddressbutton() {
 		return savenewAddressbutton;
 	}
@@ -1054,13 +1108,15 @@ public class GeneratorInformation1 {
 	
 	public void ContractedCheckbox() throws InterruptedException
 	{
-		checkBox.click();
-		WebElement element = driver.findElement(By.xpath("//div[@class='flex items-center rounded-lg  gap-2 w-fit ']"));
+		Actions act= new Actions(driver);
+        act.scrollToElement(contracedsc).perform();
+		//checkBox.click();
+		WebElement element = driver.findElement(By.xpath("(//div[contains(@class,'cursor-pointer') and contains(@class,'border-2')])[1]"));
 		
-		Thread.sleep(200);
-		String ariaDisabled = element.getAttribute("aria-disabled");
-
-	    if ("true".equals(ariaDisabled)) {
+		Thread.sleep(2000);
+		String ariachecked = element.getAttribute("aria-checked");
+		Thread.sleep(2000);
+	    if ("true".equals(ariachecked)) {
 	        System.out.println("Element is disabled");
 	    } else {
 	        System.out.println("Element is enabled");
@@ -1072,15 +1128,45 @@ public class GeneratorInformation1 {
 		Actions act= new Actions(driver);
           act.scrollToElement(contracedsc).perform();
           checkBox.click();
+          
+          WebElement modalbox = driver.findElement(By.xpath("//div[@class='modal-box']"));
+    		modalbox.isDisplayed();
   		Actions act1= new Actions(driver);
-  		webDriverutility wlib = new webDriverutility();
-  		/*
-  		wlib.waitUntilElementClickable(driver, Yesbtn);
-  		act1.doubleClick(Yesbtn).perform();
-  		//cancelbtn.click();
-  		Thread.sleep(4000);*/
+  		act1.moveToElement(yesButton).click().perform();
+ 
+	}
+	
+	public void Uncotracted() throws InterruptedException
+	{
+		Actions act= new Actions(driver);
+        act.scrollToElement(contracedsc).perform();
+        checkBox.click();
+         
+        WebElement textarea = driver.findElement(By.xpath("//textarea[@name='cancellationNote']"));
+        textarea.isDisplayed();
+        textarea.sendKeys("terminate the contact");
+        terminateContact.click();
+        
+        
+  		
+		/*Actions dract1= new Actions(driver);
+		webDriverutility wlib = new webDriverutility();	
+		wlib.waitUntilElementClickable(driver, /*cancelBtn);
+		act1.moveToElement(cancelBtn).click().perform();*/
+        
+		
+	}
+	
+	
+	public void EnableContractcheckbox()
+	{
 
-         // Yesbtn.click();
+		Actions act= new Actions(driver);
+          act.scrollToElement(contracedsc).perform();
+          checkBox.click();
+          WebElement noBuuton = driver.findElement(By.xpath("//button[contains (text(),'No')]"));
+          noBuuton.click();
+		
 	}
 	
 	public void Servicestate() throws InterruptedException

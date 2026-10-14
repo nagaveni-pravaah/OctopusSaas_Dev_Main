@@ -1,6 +1,8 @@
 package OctoRouteAssignmentFlowTc;
 
 import java.awt.AWTException;
+import java.awt.HeadlessException;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -50,9 +52,9 @@ public class All_TC_RouteAssignment extends BaseClassForGEneratorContacts{
 	WebElement addtag;
 	List<WebElement> taglist;
 	TransporterProfile transProf;
+	GeneretorInformation gip;
 
-	@Test
-
+	@Test(priority = 1)
 	public void TC_001VerifyRouteAssignmentPageDisplayed()
 	
 			throws EncryptedDocumentException, IOException, InterruptedException, AWTException {
@@ -409,7 +411,7 @@ public class All_TC_RouteAssignment extends BaseClassForGEneratorContacts{
 		}
 		
 		
-	  @Test(/*dependsOnMethods = "TC_014VerifySSRtextfields"*/)
+	  @Test(dependsOnMethods = "TC_014VerifySSRtextfields")
 	  public void TC_015VerifySubcontractorAlltheTextFieldAcceptsInputs() throws EncryptedDocumentException, IOException, InterruptedException, AWTException {
 		  //Cooment it while Running All Tc also Cooment Dependency
 		  //Cooment it while Running All Tc
@@ -640,6 +642,2338 @@ public class All_TC_RouteAssignment extends BaseClassForGEneratorContacts{
 		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
 
 	}
+	
+	@Test(dependsOnMethods = "TC_016VerifySSRWithoutInput")
+	public void TC_017SSRwitAddService() throws InterruptedException, EncryptedDocumentException, IOException, AWTException,
+			HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully");
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+		Thread.sleep(5000);
+
+}
+	
+	@Test(dependsOnMethods = "TC_017SSRwitAddService")
+	public void TC_018SSRwitAllValidInputAndsend() throws InterruptedException, EncryptedDocumentException, IOException, AWTException,
+			HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully");
+		utilityclassobject.gettest().log(Status.INFO, "SSR Accepted with all valid input");
+
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+		Thread.sleep(5000);
+
+}
+	
+	@Test(dependsOnMethods = "TC_018SSRwitAllValidInputAndsend")
+	public void TC_019() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+	elib = new ExcelUtility();
+	jlib = new javautility();
+	wlib = new webDriverutility();
+	lp = new LoginPage(driver);
+	utilityclassobject.gettest().log(Status.INFO, "Login Page is displayed");
+	lp.getLoginBtn().click();
+	utilityclassobject.gettest().log(Status.INFO, "Home Page is displayed");
+	hp = new HomePage(driver);
+	hp.AddNew();
+	hp.Generator();
+	AddNewGenerator NewGen = new AddNewGenerator(driver);
+	int Rannum = jlib.getRandomNumber();
+	String GeneretorName = elib.getDataFromExcel("Routeassignment", 1, 1) + Rannum;
+	System.out.println(GeneretorName);
+	String InternalAcNo = elib.getDataFromExcel("Routeassignment", 1, 2);
+	Thread.sleep(5000);
+	NewGen.NewGeneretor(GeneretorName, InternalAcNo);
+	GeneretorInformation ginfo = new GeneretorInformation(driver);
+	Thread.sleep(5000);
+	String ActualName = ginfo.GeneratorName();
+	System.out.println(ActualName);
+	Assert.assertTrue(ActualName.contains(GeneretorName));
+	WebElement BillingInfo = ginfo.getBillingInfo();
+	wlib.scrollToelement(driver, BillingInfo);
+	ginfo.IndustryDD();
+	WebElement lat = ginfo.getLatitute();
+	wlib.scrollToelement(driver, lat);
+	ginfo.Street();
+	String emailId = elib.getDataFromExcel("Routeassignment", 1, 3);
+	ginfo.Emialid(emailId);
+	String Phoneno = elib.getDataFromExcel("Routeassignment", 1, 4);
+	ginfo.Phonenumber(Phoneno);
+
+	utilityclassobject.gettest().log(Status.INFO, "Billing Information is Filled Successfully");
+	WebElement ele1 = ginfo.getGenereteOff();
+	wlib.scrollToelement(driver, ele1);
+	WebElement lat1 = ginfo.getLatitude();
+	System.out.println(lat1.getText());
+	System.out.println(ginfo.getLongitude().getText());
+	utilityclassobject.gettest().log(Status.INFO, "Lattitude and longtude Generetaed and verified successfully");
+	ginfo.CopyBtn();	
+	ginfo.Phonenumber("7895236478");
+	wlib.scrollToelement(driver, ele1);
+	WebElement billingEmail = ginfo.getBillingInfo();
+	String BillingMail = billingEmail.getText();
+	// Assert.assertTrue(BillingMail.contains(emailId));
+	System.out.println("Billing Email" + BillingMail);
+	utilityclassobject.gettest().log(Status.INFO, "Billing information cpoied from Generator service information");
+	WebElement sun = ginfo.getSunday();
+	wlib.scrollToelement(driver, sun);
+	ginfo.MondayOpen();
+	ginfo.lunchTime();
+	ginfo.lunchEnd();
+	ginfo.MondayClose();
+	ginfo.CopyPasteToAllDay();
+	Thread.sleep(2000);
+	ginfo.Contracted();
+	utilityclassobject.gettest().log(Status.INFO, "Generator service information saved successfully");
+	Thread.sleep(15000);
+	ginfo.Ellisebtn();
+	utilityclassobject.gettest().log(Status.INFO, "Route Assignment page is displayed");
+	Thread.sleep(7000);
+	RouteAssignment rasp = new RouteAssignment(driver);
+	WebElement ssr = rasp.getSSRbtn();
+	wlib.scrollToelement(driver, ssr);
+	ssr.click();
+	
+	WebElement subcontractorname = rasp.getSubcontractor();
+	
+	subcontractorname.click();
+	//wlib.selectByIndex(subcontractorname, 1);
+	WebElement option = driver.findElement(By.xpath("//li[@role='option']//span"));
+	wlib.mousemoveonElement(driver, option);
+	option.click();
+	utilityclassobject.gettest().log(Status.INFO, "Subcontractor name selected successfully");
+	Thread.sleep(5000);
+
+	}
+	
+	@Test(dependsOnMethods = "TC_019")
+	public void TC_020ListofNameInSubcontractor() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+	
+	List<WebElement> list = driver.findElements(By.xpath("//li[@role='option']//span"));
+
+	for(WebElement option1 : list)
+	{
+	    System.out.println(option1.getText());
+	}
+	utilityclassobject.gettest().log(Status.INFO, "Subcontractor name displayed successfully");
+    ras.getCanclebtninsubcontractor().click();
+	utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+
+    ras.RemoveServiceSchedule();
+	utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+	}
+
+	@Test(dependsOnMethods = "TC_020ListofNameInSubcontractor")
+	public void TC_021SubContractorServiceFrequency() throws InterruptedException, EncryptedDocumentException, IOException, AWTException,
+			HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib = new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		// ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+	}
+	
+	@Test(dependsOnMethods = "TC_021SubContractorServiceFrequency")
+	public void TC_022RequestDate() throws InterruptedException, EncryptedDocumentException, IOException, AWTException, HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+	}
+	
+	@Test(dependsOnMethods = "TC_022RequestDate")
+	public void TC_023SharedServiceNote() throws InterruptedException, EncryptedDocumentException, IOException, AWTException, HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.SharedServiceNote("Service is Good");
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+}
+	
+	@Test(dependsOnMethods = "TC_023SharedServiceNote")
+	public void TC_024ServiceTypeInSSR() throws InterruptedException, EncryptedDocumentException, IOException, AWTException, HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+       
+}
+	
+	@Test(dependsOnMethods = "TC_024ServiceTypeInSSR")
+	public void TC_025ServiceDuration() throws InterruptedException, EncryptedDocumentException, IOException, AWTException, HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		Thread.sleep(2000);
+
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+}
+	
+	@Test(dependsOnMethods = "TC_025ServiceDuration")
+	public void TC_026ScopeOFworkInSSR() throws InterruptedException, EncryptedDocumentException, IOException, AWTException, HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully");
+		ras.getCanclebtninsubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+
+	}
+	
+	
+	@Test(dependsOnMethods = "TC_026ScopeOFworkInSSR")
+	public void TC_029ExpetedContainer() throws InterruptedException, EncryptedDocumentException, IOException, AWTException,
+			HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		/*
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		ras.AnchorDate();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWork();
+	
+		ras.getSendtosubcontractor().click();
+		Thread.sleep(2000);
+		ras.MasterPricebook();
+		Thread.sleep(2000);
+
+		WebElement bio10 = driver.findElement(By.xpath("//input[@value='10 Gal Bio 100']"));
+
+			String bio10Value = bio10.getAttribute("value");
+			System.out.println(bio10Value);
+			WebElement bio17 = driver.findElement(By.xpath("//input[@value='17 Gal BIo 1']"));
+
+				String bio17Value = bio17.getAttribute("value");
+				System.out.println(bio17Value);
+				WebElement bioSharps = driver.findElement(
+					    By.xpath("//p[text()='Bio/Sharps']")
+					);
+
+					System.out.println(bioSharps.getText());
+					driver.navigate().back();
+					driver.navigate().back();
+	
+	
+/*
+		ras.getCanclebtninsubcontractor().click();
+		Thread.sleep(6000);
+		ras.getCancelSSrNOTe().sendKeys("Cancel SSR");
+		ras.getCancelRequestBtn().click();
+		Thread.sleep(3000);
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");*/
+
+}
+	
+	@Test(dependsOnMethods = "TC_029ExpetedContainer")
+	public void TC_029NoofContainers() throws InterruptedException, EncryptedDocumentException, IOException, AWTException,HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWork();
+		Thread.sleep(4000);
+		WebElement field17Gal = driver.findElement(
+		        By.xpath("(//div[@class='relative w-2/3'])[3]")
+		);
+
+		WebElement field18Gal = driver.findElement(
+		        By.xpath("(//div[@class='relative w-2/3'])[4]")
+		);
+
+		// Validate visibility
+		Assert.assertTrue(field17Gal.isDisplayed(), "17 Gallon field is NOT visible");
+		Assert.assertTrue(field18Gal.isDisplayed(), "18 Gallon field is NOT visible");
+
+		System.out.println("Both 17 Gal and 18 Gal fields are visible ✅");
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully and container is displayed");
+		ras.getSendtosubcontractor().click();
+		
+		Thread.sleep(2000);
+		String servicestatus = ras.getServicestatusinSSR().getText();
+		System.out.println("Service status is "+servicestatus);
+		utilityclassobject.gettest().log(Status.INFO, "Service status is "+servicestatus+" displayed successfully" );
+		Thread.sleep(2000);
+
+		ras.getCanclebtninsubcontractor().click();
+		Thread.sleep(6000);
+		ras.getCancelSSrNOTe().sendKeys("Cancel SSR");
+		ras.getCancelRequestBtn().click();
+		Thread.sleep(3000);
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+
+}
+	
+	@Test(dependsOnMethods = "TC_029NoofContainers")
+	public void TC_030PendingStatusInSSR() throws InterruptedException, EncryptedDocumentException, IOException, AWTException,
+			HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully");
+		ras.getSendtosubcontractor().click();
+		
+		Thread.sleep(2000);
+		String servicestatus = ras.getServicestatusinSSR().getText();
+		System.out.println("Service status is "+servicestatus);
+		utilityclassobject.gettest().log(Status.INFO, "Service status is "+servicestatus+" displayed successfully" );
+		Thread.sleep(2000);
+
+		ras.getCanclebtninsubcontractor().click();
+		Thread.sleep(6000);
+		ras.getCancelSSrNOTe().sendKeys("Cancel SSR");
+		ras.getCancelRequestBtn().click();
+		Thread.sleep(6000);
+
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+
+}
+	
+	@Test(dependsOnMethods = "TC_030PendingStatusInSSR")
+	public void TC_031RemoveSSR() throws InterruptedException, EncryptedDocumentException, IOException, AWTException,
+			HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		//ras.ServiceFrequency();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully");
+		ras.getSendtosubcontractor().click();
+		
+		Thread.sleep(2000);
+		String servicestatus = ras.getServicestatusinSSR().getText();
+		System.out.println("Service status is "+servicestatus);
+		utilityclassobject.gettest().log(Status.INFO, "Service status is "+servicestatus+" displayed successfully" );
+		Thread.sleep(2000);
+
+		ras.getCanclebtninsubcontractor().click();
+		Thread.sleep(6000);
+		ras.getCancelSSrNOTe().sendKeys("Cancel SSR");
+		ras.getCancelRequestBtn().click();
+		Thread.sleep(3000);
+		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+
+}
+	
+	
+	@Test(dependsOnMethods = "TC_031RemoveSSR")
+	public void TC_32ReassignwithSSR() throws InterruptedException, EncryptedDocumentException, IOException, AWTException, HeadlessException, UnsupportedFlavorException {
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		wlib=new webDriverutility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		Thread.sleep(5000);
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		Thread.sleep(2000);
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.AddRoute();
+		
+		utilityclassobject.gettest().log(Status.INFO, "Service is added to route successfully");
+		String serviceType = driver
+				.findElement(By.xpath("//span[contains(@class,'truncate') and text()='Medical Waste']")).getText();
+		System.out.println(serviceType);
+		Thread.sleep(15000);
+		ras.getSubcontractiorserviceRequest().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor ");
+
+		ras.SubcontractorDropdown();
+		utilityclassobject.gettest().log(Status.INFO, "Clicked on subcontractor dropdown until T-3,and T-7 viibile");
+		ras.getT_3Subcontractor().click();
+		ras.Servicefreq2();
+		utilityclassobject.gettest().log(Status.INFO, "Service Frequency selected successfully");
+		ras.selectweekday2();
+		utilityclassobject.gettest().log(Status.INFO, "Week days selected successfully");
+		ras.RequestStartDate();
+		utilityclassobject.gettest().log(Status.INFO, "Request start date added successfully");
+		ras.ServiceTypeInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Type added successfully");
+		ras.ServiceDurationInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Service Duration 15 minute added successfully");
+		ras.ScopeOfWorkInSSR();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully");
+		ras.getSendtosubcontractor().click();
+		utilityclassobject.gettest().log(Status.INFO, "Sub contractor added");
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+		//------------Don't Run------------
+
+		/*
+		Thread.sleep(3000);
+		ras.getCancelSSR().click();
+		ras.getCancelSSrNOTe().sendKeys("Cancel SSR");
+		ras.getCancelRequestBtn().click();
+		Thread.sleep(2000);
+		ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
+		*/
+		
+		
+}
+	
+	@Test(dependsOnMethods = "TC_32ReassignwithSSR")
+	public void TC_033AddserviceinPuoteAssignment() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+	elib = new ExcelUtility();
+	jlib = new javautility();
+	wlib = new webDriverutility();
+	lp = new LoginPage(driver);
+	utilityclassobject.gettest().log(Status.INFO, "Login Page is displayed");
+	lp.getLoginBtn().click();
+	utilityclassobject.gettest().log(Status.INFO, "Home Page is displayed");
+	hp = new HomePage(driver);
+	hp.AddNew();
+	hp.Generator();
+	AddNewGenerator NewGen = new AddNewGenerator(driver);
+	int Rannum = jlib.getRandomNumber();
+	String GeneretorName = elib.getDataFromExcel("Routeassignment", 1, 1) + Rannum;
+	System.out.println(GeneretorName);
+	String InternalAcNo = elib.getDataFromExcel("Routeassignment", 1, 2);
+	Thread.sleep(5000);
+	NewGen.NewGeneretor(GeneretorName, InternalAcNo);
+	GeneretorInformation ginfo = new GeneretorInformation(driver);
+	String ActualName = ginfo.GeneratorName();
+	System.out.println(ActualName);
+	Assert.assertTrue(ActualName.contains(GeneretorName));
+	WebElement BillingInfo = ginfo.getBillingInfo();
+	wlib.scrollToelement(driver, BillingInfo);
+	ginfo.IndustryDD();
+	WebElement lat = ginfo.getLatitute();
+	wlib.scrollToelement(driver, lat);
+	ginfo.Street();
+	Thread.sleep(3000);
+	String emailId = elib.getDataFromExcel("Routeassignment", 1, 3);
+	ginfo.Emialid(emailId);
+	String Phoneno = elib.getDataFromExcel("Routeassignment", 1, 4);
+	ginfo.Phonenumber(Phoneno);
+
+	utilityclassobject.gettest().log(Status.INFO, "Billing Information is Filled Successfully");
+	WebElement ele1 = ginfo.getGenereteOff();
+	wlib.scrollToelement(driver, ele1);
+	WebElement lat1 = ginfo.getLatitude();
+	System.out.println(lat1.getText());
+	System.out.println(ginfo.getLongitude().getText());
+	utilityclassobject.gettest().log(Status.INFO, "Lattitude and longtude Generetaed and verified successfully");
+	ginfo.CopyBtn();	
+	ginfo.Phonenumber("7895236478");
+	wlib.scrollToelement(driver, ele1);
+	WebElement billingEmail = ginfo.getBillingInfo();
+	String BillingMail = billingEmail.getText();
+	// Assert.assertTrue(BillingMail.contains(emailId));
+	System.out.println("Billing Email" + BillingMail);
+	utilityclassobject.gettest().log(Status.INFO, "Billing information cpoied from Generator service information");
+	WebElement sun = ginfo.getSunday();
+	wlib.scrollToelement(driver, sun);
+	ginfo.MondayOpen();
+	ginfo.lunchTime();
+	ginfo.lunchEnd();
+	ginfo.MondayClose();
+	ginfo.CopyPasteToAllDay();
+	Thread.sleep(2000);
+	ginfo.Contracted();
+	utilityclassobject.gettest().log(Status.INFO, "Generator service information saved successfully");
+	Thread.sleep(10000);
+	ginfo.Ellisebtn();
+	utilityclassobject.gettest().log(Status.INFO, "Route Assignment page is displayed");
+	Thread.sleep(7000);
+	//WebElement ssr = rasp.getSSRbtn();
+	//wlib.scrollToelement(driver, ssr);
+	WebElement Addser = driver.findElement(By.xpath("//span[contains(text(),'Add a Service')]"));
+	wlib.scrollToelement(driver, Addser);
+	Addser.click();
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+
+
+	/*
+	ssr.click();
+	
+	
+	WebElement subcontractorname = rasp.getSubcontractor();
+	
+	subcontractorname.click();
+	//wlib.selectByIndex(subcontractorname, 1);
+	WebElement option = driver.findElement(By.xpath("//li[@role='option']//span"));
+	wlib.mousemoveonElement(driver, option);
+	option.click();
+	ras.getServicefrequencydd().click();
+	WebElement sfr = driver.findElement(By.xpath("//div[contains(text(),'Multiple Times Weekly (MTW)')]"));
+	wlib.mousemoveonElement(driver,sfr );
+	sfr.click();
+	
+	*/
+
+	}
+	
+	@Test(dependsOnMethods = "TC_033AddserviceinPuoteAssignment")
+	public void TC_034AddRoute() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+	elib = new ExcelUtility();
+	jlib = new javautility();
+	wlib = new webDriverutility();
+	lp = new LoginPage(driver);
+	hp = new HomePage(driver);
+	elib = new ExcelUtility();
+	hp.getGeneratoemanag().click();
+	GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+	String gname = elib.getDataFromExcel("Generator", 1, 1);
+	gmp.CharlieAccounttwo(gname);
+	ras = new RouteAssignment(driver);
+	GeneretorInformation gip = new GeneretorInformation(driver);
+	gip.Ellisebtn();
+	utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+	Thread.sleep(15000);
+	ras.AddService();
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.NayanRoute();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	Thread.sleep(5000);
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.Route1();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	ras.ServiceFrequency();
+	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+	ras.SelectWeekDay(); 
+	utilityclassobject.gettest().log(Status.INFO, "Week days  selected successfully");
+    Thread.sleep(3000);
+    ras.getRemoveserviceschedule().click();
+	//ras.RemoveServiceSchedule();
+	utilityclassobject.gettest().log(Status.INFO, "Service is removed succesfully");
+
+	}
+	
+	@Test(dependsOnMethods = "TC_034AddRoute")
+	public void TC_035AddSerivceFrequency() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+	elib = new ExcelUtility();
+	jlib = new javautility();
+	wlib = new webDriverutility();
+	lp = new LoginPage(driver);
+	hp = new HomePage(driver);
+	hp.getGeneratoemanag().click();
+	GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+	String gname = elib.getDataFromExcel("Generator", 1, 1);
+	gmp.CharlieAccounttwo(gname);
+	ras = new RouteAssignment(driver);
+	GeneretorInformation gip = new GeneretorInformation(driver);
+	gip.Ellisebtn();
+	utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+	ras=new RouteAssignment(driver);
+	Thread.sleep(15000);
+	ras.AddService();
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.NayanRoute();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	ras.ServiceFrequency();
+	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+
+	}
+	
+	@Test(dependsOnMethods = "TC_035AddSerivceFrequency")
+	public void TC_036Selectweekdays() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getRemoveserviceschedule().click();
+	}
+	
+	@Test(dependsOnMethods = "TC_036Selectweekdays")
+	public void TC_037AnchorDate() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+	}
+	
+	@Test(dependsOnMethods = "TC_037AnchorDate")
+	public void TC_038Addservicetype() throws EncryptedDocumentException, IOException, InterruptedException, AWTException {
+
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route Assignment page is displayed");
+		Thread.sleep(7000);
+		ras = new RouteAssignment(driver);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		ras.getRemoveserviceschedule().click();
+	}
+	
+	@Test(dependsOnMethods = "TC_038Addservicetype")
+	public void TC_039DefaultdisposalFacility() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+	utilityclassobject.gettest().log(Status.INFO, "Route Assignment page is displayed");
+	Thread.sleep(15000);
+	ras=new RouteAssignment(driver);
+	ras.AddService();
+	Thread.sleep(5000);
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.Route1();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	ras.ServiceFrequency();
+	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+	ras.SelectWeekDay();
+	ras.getClickoutside().click();;
+	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+	ras.getCalendar().click();
+    LocalDate today = LocalDate.now();
+    String day = String.valueOf(today.getDayOfMonth());
+    driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+	ras.ServiceType();
+	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+	WebElement element = ras.getDefaultdisposalFacility();
+
+
+	if(element.isDisplayed()) {
+	    System.out.println("Default disposal facility Element is visible");
+	} else {
+	    System.out.println("Default disposal facility Element is not visible");
+	}
+	Assert.assertTrue(element.isDisplayed());
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+
+
+	}
+	
+	@Test(dependsOnMethods = "TC_039DefaultdisposalFacility")
+	public void TC_040Selectvaluefromdefaultdisposalfacility() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+	Thread.sleep(5000);
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.Route1();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	ras.ServiceFrequency();
+	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+	ras.SelectWeekDay();
+	ras.getClickoutside().click();;
+	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+	ras.getCalendar().click();
+    LocalDate today = LocalDate.now();
+    String day = String.valueOf(today.getDayOfMonth());
+    driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+	ras.ServiceType();
+	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+	WebElement element = ras.getDefaultdisposalFacility();
+
+
+	if(element.isDisplayed()) {
+	    System.out.println("Default disposal facility Element is visible");
+	} else {
+	    System.out.println("Default disposal facility Element is not visible");
+	}
+	Assert.assertTrue(element.isDisplayed());
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+	ras.defaultdisposaldd();
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+
+	}
+
+	@Test(dependsOnMethods = "TC_040Selectvaluefromdefaultdisposalfacility")
+	public void TC_041Selectvaluefromdefaultdisposalfacility() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+	
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+	Thread.sleep(5000);
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.Route1();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	ras.ServiceFrequency();
+	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+	ras.SelectWeekDay();
+	ras.getClickoutside().click();;
+	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+	ras.getCalendar().click();
+    LocalDate today = LocalDate.now();
+    String day = String.valueOf(today.getDayOfMonth());
+    driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+	ras.ServiceType();
+	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+	WebElement element = ras.getDefaultdisposalFacility();
+
+
+	if(element.isDisplayed()) {
+	    System.out.println("Default disposal facility Element is visible");
+	} else {
+	    System.out.println("Default disposal facility Element is not visible");
+	}
+	Assert.assertTrue(element.isDisplayed());
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+	ras.defaultdisposaldd();
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+    ras.ServiceDuration();
+	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+	}
+	
+	@Test(dependsOnMethods = "TC_041Selectvaluefromdefaultdisposalfacility")
+	public void TC_042scopeofworkasservicetype() throws EncryptedDocumentException, IOException, InterruptedException, AWTException
+	{
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		GeneratorManagentPage gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		GeneretorInformation gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+	Thread.sleep(5000);
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.Route1();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	ras.ServiceFrequency();
+	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+	ras.SelectWeekDay();
+	ras.getClickoutside().click();;
+	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+	ras.getCalendar().click();
+    LocalDate today = LocalDate.now();
+    String day = String.valueOf(today.getDayOfMonth());
+    driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+	ras.ServiceType();
+	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+	WebElement element = ras.getDefaultdisposalFacility();
+
+
+	if(element.isDisplayed()) {
+	    System.out.println("Default disposal facility Element is visible");
+	} else {
+	    System.out.println("Default disposal facility Element is not visible");
+	}
+	Assert.assertTrue(element.isDisplayed());
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+	ras.defaultdisposaldd();
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+    ras.ServiceDuration();
+	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+	ras.ScopeOfworko();
+    Thread.sleep(2000);
+	List<WebElement> list = driver.findElements(By.xpath("//ul[@role='listbox']//li"));
+   
+	System.out.println("Total Options: " + list.size());
+
+	for(WebElement option : list)
+	{
+	    System.out.println(option.getText());
+	}
+	utilityclassobject.gettest().log(Status.INFO, "Scope of work displayed element based on selected service type");
+
+	}
+	
+	@Test(dependsOnMethods = "TC_042scopeofworkasservicetype")
+	public void TC_043numberofcontainerIncrease()
+			throws EncryptedDocumentException, IOException, InterruptedException, AWTException {
+
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+		utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+		ras.Route1();
+		utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+		ras.ServiceFrequency();
+		utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+		ras.SelectWeekDay();
+		ras.getClickoutside().click();
+		;
+		utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+		ras.getCalendar().click();
+		LocalDate today = LocalDate.now();
+		String day = String.valueOf(today.getDayOfMonth());
+		driver.findElement(By.xpath("//*[text()='" + day + "']")).click();
+		utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+		ras.ServiceType();
+		utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+		WebElement element = ras.getDefaultdisposalFacility();
+
+		if (element.isDisplayed()) {
+			System.out.println("Default disposal facility Element is visible");
+		} else {
+			System.out.println("Default disposal facility Element is not visible");
+		}
+		Assert.assertTrue(element.isDisplayed());
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+		ras.defaultdisposaldd();
+		utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+		ras.ServiceDuration();
+		utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+		ras.ScopeOfWork();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+		ras.getClickoutside().click();
+		// ras.getSowclick().click();
+		ras.IncreaseGalone();
+		ras.IncreaseGaltwo();
+		Thread.sleep(2000);
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+		ras.decreasesevGalBioone();
+		utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+		ras.getRemoveserviceschedule();
+
+	}
+	
+	@Test(dependsOnMethods = "TC_043numberofcontainerIncrease")
+	public void Tc_044checkbox() throws InterruptedException, EncryptedDocumentException, IOException, AWTException
+	{
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+    	ras.Route1();
+    	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+    	ras.ServiceFrequency();
+    	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+    	ras.SelectWeekDay();
+    	ras.getClickoutside().click();;
+    	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+    	ras.getCalendar().click();
+        LocalDate today = LocalDate.now();
+        String day = String.valueOf(today.getDayOfMonth());
+        driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+    	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+    	ras.ServiceType();
+    	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+    	WebElement element = ras.getDefaultdisposalFacility();
+
+
+    	if(element.isDisplayed()) {
+    	    System.out.println("Default disposal facility Element is visible");
+    	} else {
+    	    System.out.println("Default disposal facility Element is not visible");
+    	}
+    	Assert.assertTrue(element.isDisplayed());
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+    	ras.defaultdisposaldd();
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+        ras.ServiceDuration();
+    	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+    	ras.ScopeOfWork();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+    	ras.getClickoutside().click();
+    	//ras.getSowclick().click();
+    	ras.IncreaseGalone();
+    	ras.IncreaseGaltwo();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+    	ras.decreasesevGalBioone();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+    	ras.getRequitepiccheckbox().click();
+    	utilityclassobject.gettest().log(Status.INFO, "Require picture check box checked  successfully");
+		ras.getRemoveserviceschedule();
+	}
+	
+	@Test(dependsOnMethods = "Tc_044checkbox")
+	public void TC_045NextService() throws InterruptedException, EncryptedDocumentException, IOException, AWTException
+	{
+
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+    	ras.Route1();
+    	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+    	ras.ServiceFrequency();
+    	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+    	ras.SelectWeekDay();
+    	ras.getClickoutside().click();;
+    	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+    	ras.getCalendar().click();
+        LocalDate today = LocalDate.now();
+        String day = String.valueOf(today.getDayOfMonth());
+        driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+    	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+    	ras.ServiceType();
+    	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+    	WebElement element = ras.getDefaultdisposalFacility();
+
+
+
+    	if(element.isDisplayed()) {
+    	    System.out.println("Default disposal facility Element is visible");
+    	} else {
+    	    System.out.println("Default disposal facility Element is not visible");
+    	}
+    	Assert.assertTrue(element.isDisplayed());
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+    	ras.defaultdisposaldd();
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+        ras.ServiceDuration();
+    	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+    	ras.ScopeOfWork();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+    	ras.getClickoutside().click();
+    	//ras.getSowclick().click();
+    	ras.IncreaseGalone();
+    	ras.IncreaseGaltwo();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+    	ras.decreasesevGalBioone();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+    	ras.getRequitepiccheckbox().click();
+    	utilityclassobject.gettest().log(Status.INFO, "Require picture check box checked  successfully");
+    	//List<WebElement> schedules = driver.findElements( By.xpath("//div[contains(@class,'bg-gray-100 rounded-full')]"));
+    	List<WebElement> scheduleservce = driver.findElements(By.xpath("//div[contains(@class,'bg-gray-100 rounded-full')]"));
+
+    	System.out.println("Total schedules: " + scheduleservce.size());
+
+    	if(scheduleservce.size() == 6) {
+    	    System.out.println("All 6 schedules are displayed");
+        	utilityclassobject.gettest().log(Status.INFO, "All 6 schedules are displayed");
+
+    	} else {
+    	    System.out.println("Schedules count mismatch");
+    	}
+		ras.getRemoveserviceschedule();
+
+	}
+	
+	@Test(dependsOnMethods = "TC_045NextService")
+	public void TC_046NextservicewithOfficehours() throws InterruptedException, EncryptedDocumentException, IOException, AWTException
+	{
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+    	ras.Route1();
+    	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+    	ras.ServiceFrequency();
+    	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+    	ras.SelectWeekDay();
+    	ras.getClickoutside().click();;
+    	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+    	ras.getCalendar().click();
+        LocalDate today = LocalDate.now();
+        String day = String.valueOf(today.getDayOfMonth());
+        driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+    	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+    	ras.ServiceType();
+    	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+    	WebElement element = ras.getDefaultdisposalFacility();
+
+
+    	if(element.isDisplayed()) {
+    	    System.out.println("Default disposal facility Element is visible");
+    	} else {
+    	    System.out.println("Default disposal facility Element is not visible");
+    	}
+    	Assert.assertTrue(element.isDisplayed());
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+    	ras.defaultdisposaldd();
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+        ras.ServiceDuration();
+    	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+    	ras.ScopeOfWork();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+    	ras.getClickoutside().click();
+    	//ras.getSowclick().click();
+    	ras.IncreaseGalone();
+    	ras.IncreaseGaltwo();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+    	ras.decreasesevGalBioone();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+    	ras.getRequitepiccheckbox().click();
+    	utilityclassobject.gettest().log(Status.INFO, "Require picture check box checked  successfully");
+    	//List<WebElement> schedules = driver.findElements( By.xpath("//div[contains(@class,'bg-gray-100 rounded-full')]"));
+    	List<WebElement> scheduleservce = driver.findElements(By.xpath("//div[contains(@class,'bg-gray-100 rounded-full')]"));
+
+    	System.out.println("Total schedules: " + scheduleservce.size());
+
+    	if(scheduleservce.size() == 6) {
+    	    System.out.println("All 6 schedules are displayed");
+        	utilityclassobject.gettest().log(Status.INFO, "All 6 schedules are displayed");
+    	} else {
+    	    System.out.println("Schedules count mismatch");
+    	}
+    	
+    	for(WebElement schedule : scheduleservce)
+    	{
+    	    String service = schedule.getText();
+
+    	    boolean hasTime = service.matches(".*\\d{1,2}:\\d{2}.*");
+
+    	    Assert.assertFalse(hasTime, "Office hours should not be displayed: " + service);
+    	    System.out.println("Next service with office hours displayed successfully");
+        	utilityclassobject.gettest().log(Status.INFO, "Next service with office hour displayed successfully");
+
+    	}
+		ras.getRemoveserviceschedule();
+
+	}
+	
+	@Test(dependsOnMethods = "TC_046NextservicewithOfficehours")
+	public void TC_047AddRoute() throws InterruptedException, EncryptedDocumentException, IOException, AWTException
+	{
+	hp = new HomePage(driver);
+	elib = new ExcelUtility();
+	wlib=new webDriverutility();
+	hp.getGeneratoemanag().click();
+	gmp = new GeneratorManagentPage(driver);
+	String gname = elib.getDataFromExcel("Generator", 1, 1);
+	gmp.CharlieAccounttwo(gname);
+	ras = new RouteAssignment(driver);
+	gip = new GeneretorInformation(driver);
+	gip.Ellisebtn();
+    
+ 	utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+ 	
+ 	Thread.sleep(7000);
+	
+	ras.AddService();
+	Thread.sleep(5000);
+	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+	ras.Route1();
+	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+	ras.ServiceFrequency();
+	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+	ras.SelectWeekDay();
+	ras.getClickoutside().click();;
+	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+	ras.getCalendar().click();
+    LocalDate today = LocalDate.now();
+    String day = String.valueOf(today.getDayOfMonth());
+    driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+	ras.ServiceType();
+	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+	ras.defaultdisposaldd();
+	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+    ras.ServiceDuration();
+	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+	ras.ScopeOfWork();
+	utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+	ras.getClickoutside().click();
+	//ras.getSowclick().click();
+	ras.IncreaseGalone();
+	ras.IncreaseGaltwo();
+	utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+	ras.decreasesevGalBioone();
+	utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+	ras.getRequitepiccheckbox().click();
+	utilityclassobject.gettest().log(Status.INFO, "Require picture check box checked  successfully");
+	ras.AddRoute();
+	Thread.sleep(10000);
+	utilityclassobject.gettest().log(Status.INFO, "Add route clicked successfully");
+	ras.RemoveServiceSchedule();
+	utilityclassobject.gettest().log(Status.INFO, "Service is removed succesfully");
+
+	}
+	
+	@Test(dependsOnMethods = "TC_047AddRoute")
+	public void TC_048Establishedhours() throws InterruptedException, EncryptedDocumentException, IOException, AWTException
+	{
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+    	ras.Route1();
+    	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+    	ras.ServiceFrequency();
+    	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+    	ras.SelectWeekDay();
+    	ras.getClickoutside().click();;
+    	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+    	ras.getCalendar().click();
+        LocalDate today = LocalDate.now();
+        String day = String.valueOf(today.getDayOfMonth());
+        driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+    	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+    	ras.ServiceType();
+    	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+    
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+    	ras.defaultdisposaldd();
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+        ras.ServiceDuration();
+    	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+    	ras.ScopeOfWork();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+    	ras.getClickoutside().click();
+    	//ras.getSowclick().click();
+    	ras.IncreaseGalone();
+    	ras.IncreaseGaltwo();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+    	ras.decreasesevGalBioone();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+    	ras.getRequitepiccheckbox().click();
+    	utilityclassobject.gettest().log(Status.INFO, "Require picture check box checked  successfully");
+    	ras.AddRoute();
+    	Thread.sleep(7000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add route clicked successfully");
+    	WebElement establishedDate =ras.getEstablisdate();
+    	Assert.assertTrue(establishedDate.isDisplayed(), "Established Date field is not displayed");
+      	ras.RemoveServiceSchedule();
+    	utilityclassobject.gettest().log(Status.INFO, "Service removed successfully ");
+
+	}
+	
+	@Test(dependsOnMethods = "TC_048Establishedhours")
+	public void TC_049RemoveaddedService() throws InterruptedException, EncryptedDocumentException, IOException, AWTException
+	{
+
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+    	ras.Route1();
+    	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+    	ras.ServiceFrequency();
+    	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+    	ras.SelectWeekDay();
+    	ras.getClickoutside().click();;
+    	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+    	ras.getCalendar().click();
+        LocalDate today = LocalDate.now();
+        String day = String.valueOf(today.getDayOfMonth());
+        driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+    	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+    	ras.ServiceType();
+    	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+    
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+    	ras.defaultdisposaldd();
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+        ras.ServiceDuration();
+    	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+    	ras.ScopeOfWork();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+    	ras.getClickoutside().click();
+    	//ras.getSowclick().click();
+    	ras.IncreaseGalone();
+    	ras.IncreaseGaltwo();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+    	ras.decreasesevGalBioone();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+    	ras.getRequitepiccheckbox().click();
+    	utilityclassobject.gettest().log(Status.INFO, "Require picture check box checked  successfully");
+    	ras.AddRoute();
+    	Thread.sleep(7000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add route clicked successfully");
+    	WebElement establishedDate =ras.getEstablisdate();
+    	Assert.assertTrue(establishedDate.isDisplayed(), "Established Date field is not displayed");
+    	ras.RemoveServiceSchedule();
+		utilityclassobject.gettest().log(Status.INFO, "Service is removed succesfully");
+
+
+	}
+	
+	@Test(dependsOnMethods = "TC_049RemoveaddedService")
+	public void TC_050UpdateButton() throws InterruptedException, EncryptedDocumentException, IOException, AWTException
+	{
+		hp = new HomePage(driver);
+		elib = new ExcelUtility();
+		hp.getGeneratoemanag().click();
+		gmp = new GeneratorManagentPage(driver);
+		String gname = elib.getDataFromExcel("Generator", 1, 1);
+		gmp.CharlieAccounttwo(gname);
+		ras = new RouteAssignment(driver);
+		gip = new GeneretorInformation(driver);
+		gip.Ellisebtn();
+		utilityclassobject.gettest().log(Status.INFO, "Route assignment page is displayed successfully");
+		Thread.sleep(15000);
+		ras.AddService();
+		Thread.sleep(5000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add service displayed all text field successfully");
+    	ras.Route1();
+    	utilityclassobject.gettest().log(Status.INFO, "Route selected successfully");
+    	ras.ServiceFrequency();
+    	utilityclassobject.gettest().log(Status.INFO, "Service frequency selected successfully");
+    	ras.SelectWeekDay();
+    	ras.getClickoutside().click();;
+    	utilityclassobject.gettest().log(Status.INFO, "week days selected successfully");
+    	ras.getCalendar().click();
+        LocalDate today = LocalDate.now();
+        String day = String.valueOf(today.getDayOfMonth());
+        driver.findElement(By.xpath("//*[text()='"+day+"']")).click();
+    	utilityclassobject.gettest().log(Status.INFO, "Current date selected successfully");
+    	ras.ServiceType();
+    	utilityclassobject.gettest().log(Status.INFO, "Service type selected successfully");
+    
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility displayed successfully");
+    	ras.defaultdisposaldd();
+    	utilityclassobject.gettest().log(Status.INFO, "Default disposal facility seleccted value successfully");
+        ras.ServiceDuration();
+    	utilityclassobject.gettest().log(Status.INFO, "Service duration selected successfully");
+    	ras.ScopeOfWork();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work selected successfully");
+    	ras.getClickoutside().click();
+    	Thread.sleep(3000);
+    	//ras.getSowclick().click();
+    	Thread.sleep(5000);
+    	ras.IncreaseGalone();
+    	ras.IncreaseGaltwo();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work increased successfully");
+    	ras.decreasesevGalBioone();
+    	utilityclassobject.gettest().log(Status.INFO, "Scope of work decreased successfully");
+    	ras.getRequitepiccheckbox().click();
+    	utilityclassobject.gettest().log(Status.INFO, "Require picture check box checked  successfully");
+    	ras.AddRoute();
+    	Thread.sleep(15000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add route clicked successfully");
+    	ras.IncreaseGalone();
+    	Thread.sleep(5000);
+    	ras.getUpdatebtn().click();
+    	ras.getUpdateschedule().click();
+    	Thread.sleep(3000);
+    	utilityclassobject.gettest().log(Status.INFO, "Add route Updated successfully");
+    	Thread.sleep(10000);
+    	WebElement establishedDate =ras.getEstablisdate();
+    	Assert.assertTrue(establishedDate.isDisplayed(), "Established Date field is not displayed");
+      	ras.RemoveServiceSchedule();
+    	utilityclassobject.gettest().log(Status.INFO, "Service removed successfully ");
+
+
+	}
+
+	
+	
+	
+	
 
 
 }

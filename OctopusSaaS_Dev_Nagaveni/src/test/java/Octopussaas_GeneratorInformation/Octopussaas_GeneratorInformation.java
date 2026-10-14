@@ -248,6 +248,7 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 		      }
 		  }
 
+
 		  // Click Apply only once after selecting all tags
 		  gp.getApplyButton().click();
 		  System.out.println("User is able to add more than one tags : PASS");
@@ -672,6 +673,8 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 			    previousCount = locations.size();
 			}
 
+			
+			
 			System.out.println("Total Locations : " + locations.size());
 
 			for (String location : locations) {
@@ -1170,7 +1173,9 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 	  gp.getDeadfielStatus().click(); 
 	  gp.Updatestatus();
 	  System.out.println("Dead File status got updated");
-	  Thread.sleep(200);
+	  Thread.sleep(2000);
+	  gp.getGeneratorStatus().click();
+	  gp.getGeneratorStatus().click();
 	  gp.getGeneratorStatus().click();
 	  gp.getProspectStatus().click(); 
 	  gp.Updatestatus();
@@ -1245,92 +1250,383 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 	  
 	  //need to change the dependency
 	  
-	  /*@Test(dependsOnMethods = "TC_086VerifySelectmorethanIndustrytype") public
-	  void TC_088VerifyContractedcheckboxwithClick() throws InterruptedException {
-	  // gp.ContractedCheckbox();
+	  @Test(dependsOnMethods = "TC_086VerifySelectmorethanIndustrytype") 
+	  public void TC_088VerifyContractedcheckboxwithClick() throws InterruptedException {
+	  gp = new GeneratorInformation1(driver); 
+	  elib = new ExcelUtility();  
+	  gp.ContractedCheckbox();
 	  System.out.println("contracted checkbox is not clickable as expected");
-	  utilityclassobject.gettest().log(Status.INFO,
-	  "contracted checkbox is not clickable as expected");	  
+	  utilityclassobject.gettest().log(Status.INFO,"contracted checkbox is not clickable as expected");	  
 	  }
 	  
-	  @Test(dependsOnMethods = "TC_088VerifyContractedcheckboxwithClick") public
-	  void TC_089VerifycontractedcheckboxwithClick_withaddingInformation() throws
-	  InterruptedException { 
-		  
-	  gp.getStreet().click();
-	  gp.getStreet().sendKeys(Keys.CONTROL + "a");
-	  gp.getStreet().sendKeys(Keys.DELETE); //gp.getStreet().sendKeys("1237 2");
-	  gp.getStreet().sendKeys("6598 3"); Thread.sleep(2000); WebElement
-	  servicestreet = driver.findElement(By.
-	  xpath("(//div[contains (text(),'6598 Three Locks Road')])[1]")); //WebElement
-	  servicestreet = driver.findElement(By.
-	  xpath("//div[contains(text(),'1237 Two Ridge Road, Wintersville, Ohio 43953, United States')]"
-	  )); Actions act = new Actions(driver);
-	  act.moveToElement(servicestreet).click().perform();
-	  System.out.println("Street address enterd into the field");
-	  gp.getServiceEmail().click(); gp.getServiceEmail().sendKeys(Keys.CONTROL +
-	  "a"); gp.getServiceEmail().sendKeys(Keys.DELETE);
-	  gp.getServiceEmail().sendKeys("test@2342test.com");
-	  System.out.println("Email address enterd into the field");
-	  gp.getServicePhone().click(); gp.getServicePhone().sendKeys(Keys.CONTROL +
-	  "a"); gp.getServicePhone().sendKeys(Keys.DELETE);
-	  gp.getServicePhone().sendKeys("4859849849");
-	  System.out.println("Phone number enterd into the field"); Thread.sleep(2000);
-	  gp.getCopyButton().click(); Thread.sleep(200); //gp.ContractedCheckbox();
-	  gp.Contracted(); Thread.sleep(200); WebElement popup =
-	  driver.findElement(By.xpath("//div[@class='modal-box']"));
-	  Assert.assertTrue(popup.isDisplayed());
-	  System.out.println("Popup is displayed"); Thread.sleep(200); WebElement
-	  button =
-	  driver.findElement(By.xpath("(//button[contains (text(),'✕')])[2]"));
-	  button.click();
-	  System.out.println("user is able click on the contracted checkbox");
-	  Thread.sleep(2000); utilityclassobject.gettest().log(Status.INFO,
-	  "contracted checkbox is enabled and user is a able to check it");
+	  @Test(dependsOnMethods = "TC_088VerifyContractedcheckboxwithClick") 
+	  public void TC_089VerifycontractedcheckboxwithClick_withaddingInformation() throws InterruptedException, EncryptedDocumentException, IOException 
+	  { 
+	       gp.getStreet().click(); 
+		   gp.getStreet().sendKeys(Keys.CONTROL + "a");
+		   gp.getStreet().sendKeys(Keys.DELETE); 
+		   gp.getStreet().sendKeys("1245 6"); 
+		   WebElement street1 = driver.findElement(By.xpath("//div[contains (text(),'1245 6th Street Southwest, Warren, Ohio 44485, United States')]")); 
+		   street1.click(); Thread.sleep(2000); 
+		   String city = gp.getServiceCity().getAttribute("value"); 
+		   System.out.println("City: " +city); 
+		   String state = gp.getServiceState().getAttribute("value");
+		   System.out.println("State: " + state); 
+		   String zipcode = gp.getServiceZipode().getAttribute("value"); 
+		   System.out.println("Zip Code: "+ zipcode); 
+		   
+		   gp.getServiceEmail().click();
+		   gp.getServiceEmail().sendKeys(Keys.CONTROL + "a");
+		   gp.getServiceEmail().sendKeys(Keys.DELETE); 
+		   gp.getServiceEmail().sendKeys("test@345test.com");
+		   
+		   gp.getServicePhone().click(); 
+		   gp.getServicePhone().sendKeys(Keys.CONTROL +"a"); 
+		   gp.getServicePhone().sendKeys(Keys.DELETE); 
+		   String input = elib.getDataFromExcel("GeneratorInformation", 43, 2);
+		   gp.getServicePhone().sendKeys(input);
+		   Thread.sleep(2000);
+		   gp.getCopyButton().click();
+		   
+			gp.EnableContractcheckbox();
+			System.out.println("User is able to check the contracted box after filling the details");
+			utilityclassobject.gettest().log(Status.INFO,"User is able to check the contracted box after filling the details");
+		   
+	  
 	  
 	  }
 	  
-	  @Test(dependsOnMethods =
-	  "TC_089VerifycontractedcheckboxwithClick_withaddingInformation") public void
-	  TC_090VerifycheckboxwithoutGeneratorBilling() throws InterruptedException 
+	  @Test(dependsOnMethods ="TC_089VerifycontractedcheckboxwithClick_withaddingInformation") 
+	  public void  TC_090VerifycheckboxwithoutGeneratorBilling() throws InterruptedException 
 	  {
+		  gp.getBillingaddressStreet().click();
+		  gp.getBillingaddressStreet().sendKeys(Keys.CONTROL + "a");
+		  gp.getBillingaddressStreet().sendKeys(Keys.DELETE); Thread.sleep(200);
+		  gp.getBillingaddressEmail().click();
+		  gp.getBillingaddressEmail().sendKeys(Keys.CONTROL + "a");
+		  gp.getBillingaddressEmail().sendKeys(Keys.DELETE); Thread.sleep(200);
+		  gp.getBillinaddressPhone().click();
+		  gp.getBillinaddressPhone().sendKeys(Keys.CONTROL + "a");
+		  gp.getBillinaddressPhone().sendKeys(Keys.DELETE); Thread.sleep(200); 
+		  Thread.sleep(2000);
+		  gp.ContractedCheckbox();
+		  System.out.println("user is not able click on the contracted checkbox");
+		  Thread.sleep(2000); utilityclassobject.gettest().log(Status.INFO, "The user is not be able to check the checkbox");
 		  
-	  gp.getStreet().click(); gp.getStreet().sendKeys(Keys.CONTROL + "a");
-	  gp.getStreet().sendKeys(Keys.DELETE); gp.getStreet().sendKeys("1237 2");
-	  //gp.getStreet().sendKeys("6598 3"); Thread.sleep(2000); 
-	  //WebElement servicestreet = driver.findElement(By.xpath("(//div[contains (text(),'6598 Three Locks Road')])[1]")); 
-	  WebElement servicestreet = driver.findElement(By.xpath("//div[contains(text(),'1237 Two Ridge Road, Wintersville, Ohio 43953, United States')]"
-	  )); Actions act = new Actions(driver);
-	  act.moveToElement(servicestreet).click().perform();
-	  System.out.println("Street address enterd into the field");
-	  gp.getServiceEmail().click(); gp.getServiceEmail().sendKeys(Keys.CONTROL +
-	  "a"); gp.getServiceEmail().sendKeys(Keys.DELETE);
-	  gp.getServiceEmail().sendKeys("test@2342test.com");
-	  System.out.println("Email address enterd into the field");
-	  gp.getServicePhone().click(); gp.getServicePhone().sendKeys(Keys.CONTROL +
-	  "a"); gp.getServicePhone().sendKeys(Keys.DELETE);
-	  gp.getServicePhone().sendKeys("4859849849");
-	  System.out.println("Phone number enterd into the field"); Thread.sleep(200);
-	  gp.getBillingaddressStreet().click();
-	  gp.getBillingaddressStreet().sendKeys(Keys.CONTROL + "a");
-	  gp.getBillingaddressStreet().sendKeys(Keys.DELETE); Thread.sleep(200);
-	  gp.getBillingaddressEmail().click();
-	  gp.getBillingaddressEmail().sendKeys(Keys.CONTROL + "a");
-	  gp.getBillingaddressEmail().sendKeys(Keys.DELETE); Thread.sleep(200);
-	  gp.getBillinaddressPhone().click();
-	  gp.getBillinaddressPhone().sendKeys(Keys.CONTROL + "a");
-	  gp.getBillinaddressPhone().sendKeys(Keys.DELETE); Thread.sleep(200);
-	  //GeneretorInformation ginfo = new GeneretorInformation(driver);
-	  gp.Contracted();
-	  System.out.println("user is not able click on the contracted checkbox");
-	  Thread.sleep(2000); utilityclassobject.gettest().log(Status.INFO,
-	  "The user is not be able to check the checkbox");
+	  }
 	  
-	  }*/
 	  
-	   //need to complete the contracted checkbox testcase
+	  @Test(dependsOnMethods = "TC_090VerifycheckboxwithoutGeneratorBilling")
+	  public void TC_091VerifyCheckboxwithoutGeneratorServiceInformation() throws InterruptedException, EncryptedDocumentException, IOException
+	  {
+		   gp.getBillingaddressStreet().sendKeys(Keys.CONTROL + "a");
+		   gp.getBillingaddressStreet().sendKeys(Keys.DELETE); 
+		   gp.getBillingaddressStreet().sendKeys("1245 6"); 
+		   WebElement street1 = driver.findElement(By.xpath("//div[contains (text(),'1245 6th Street Southwest, Warren, Ohio 44485, United States')]")); 
+		   street1.click(); 
+		   Thread.sleep(2000); 
+		   String city = gp.getBillingcity().getAttribute("value"); 
+		   System.out.println("City: " +city); 
+		   String state = gp.getBillingstate().getAttribute("value");
+		   System.out.println("State: " + state); 
+		   String zipcode = gp.getBillingzipcode().getAttribute("value"); 
+		   System.out.println("Zip Code: "+ zipcode); 
+		   
+		   gp.getBillingaddressEmail().click();
+		   gp.getBillingaddressEmail().sendKeys(Keys.CONTROL + "a");
+		   gp.getBillingaddressEmail().sendKeys(Keys.DELETE); 
+		   gp.getBillingaddressEmail().sendKeys("test@345test.com");
+		   
+		   gp.getBillinaddressPhone().click(); 
+		   gp.getBillinaddressPhone().sendKeys(Keys.CONTROL +"a"); 
+		   gp.getBillinaddressPhone().sendKeys(Keys.DELETE); 
+		   String input = elib.getDataFromExcel("GeneratorInformation", 43, 2);
+		   gp.getBillinaddressPhone().sendKeys(input);
+		   
+		   gp.getStreet().click(); 
+		   gp.getStreet().sendKeys(Keys.CONTROL + "a");
+		   gp.getStreet().sendKeys(Keys.DELETE); 
+		   
+		   gp.getServiceEmail().click();
+		   gp.getServiceEmail().sendKeys(Keys.CONTROL + "a");
+		   gp.getServiceEmail().sendKeys(Keys.DELETE); 
+		   
+		   gp.getServicePhone().click(); 
+		   gp.getServicePhone().sendKeys(Keys.CONTROL +"a"); 
+		   gp.getServicePhone().sendKeys(Keys.DELETE); 
+		   Thread.sleep(2000);
+		   gp.ContractedCheckbox();
+		   System.out.println("user is not able click on the contracted checkbox");
+		   utilityclassobject.gettest().log(Status.INFO,"user is not able click on the contracted checkbox");	   
+	  }
 	  
-	  @Test(dependsOnMethods = "TC_086VerifySelectmorethanIndustrytype") public void
+	  @Test(dependsOnMethods = "TC_091VerifyCheckboxwithoutGeneratorServiceInformation")
+	  public void TC_092VerifyContractedcheckboxeithPopup() throws EncryptedDocumentException, IOException, InterruptedException
+	  {
+		   gp.getStreet().click(); 
+		   gp.getStreet().sendKeys(Keys.CONTROL + "a");
+		   gp.getStreet().sendKeys(Keys.DELETE); 
+		   gp.getStreet().sendKeys("1245 6"); 
+		   WebElement street1 = driver.findElement(By.xpath("//div[contains (text(),'1245 6th Street Southwest, Warren, Ohio 44485, United States')]")); 
+		   street1.click(); Thread.sleep(2000); 
+		   String city = gp.getServiceCity().getAttribute("value"); 
+		   System.out.println("City: " +city); 
+		   String state = gp.getServiceState().getAttribute("value");
+		   System.out.println("State: " + state); 
+		   String zipcode = gp.getServiceZipode().getAttribute("value"); 
+		   System.out.println("Zip Code: "+ zipcode); 
+		   
+		   gp.getServiceEmail().click();
+		   gp.getServiceEmail().sendKeys(Keys.CONTROL + "a");
+		   gp.getServiceEmail().sendKeys(Keys.DELETE); 
+		   gp.getServiceEmail().sendKeys("test@345test.com");
+		   
+		   gp.getServicePhone().click(); 
+		   gp.getServicePhone().sendKeys(Keys.CONTROL +"a"); 
+		   gp.getServicePhone().sendKeys(Keys.DELETE); 
+		   String input = elib.getDataFromExcel("GeneratorInformation", 43, 2);
+		   gp.getServicePhone().sendKeys(input);
+		   Thread.sleep(2000);
+		   gp.getCopyButton().click();
+		   Actions act= new Actions(driver);
+	        act.scrollToElement(gp.contracedsc).perform();
+	        gp.checkBox.click();
+	          
+	        WebElement modalbox = driver.findElement(By.xpath("//div[@class='modal-box']"));
+	    	modalbox.isDisplayed();
+	    	Thread.sleep(40000);
+	    	System.out.println("A pop up is displayed asking for confirmation");
+			utilityclassobject.gettest().log(Status.INFO,"A pop up is displayed asking for confirmation");	       	
+	  }
+	  
+	  @Test(dependsOnMethods = "TC_092VerifyContractedcheckboxeithPopup")
+	  public void TC_093VerifyContractedcheckboxwithYesbutton()
+	  {
+		    Actions act1= new Actions(driver);
+	  		act1.moveToElement(gp.yesButton).click().perform();
+	  		System.out.println("The checkbox is checked");
+			utilityclassobject.gettest().log(Status.INFO,"The checkbox is checked");	       	
+	  }
+	  
+	  @Test(dependsOnMethods = "TC_093VerifyContractedcheckboxwithYesbutton")
+	  public void TC_094VerifyContractedcheckboxwithGeneratorStatus() throws InterruptedException 
+	  {
+		  Thread.sleep(2000);
+		  Actions act= new Actions(driver);
+	      act.scrollToElement(gp.getGeneratorStatus()).perform();
+		  Thread.sleep(2000);
+		  WebElement status = driver.findElement(By.xpath("(//span[contains (text(),'Contracted (Unscheduled)')])[2]"));
+		  status.isDisplayed();
+		  System.out.println(status);
+		  System.out.println("The status got changed from 'Prospect' to 'Contracted (Unscheduled)");
+		  utilityclassobject.gettest().log(Status.INFO,"The status got changed from 'Prospect' to 'Contracted (Unscheduled)");	       	
+	  }
+	  
+	  
+	  @Test(dependsOnMethods = "TC_094VerifyContractedcheckboxwithGeneratorStatus")
+	  public void TC_096VerifyContractedwithuncheck() throws InterruptedException
+	  {
+		 Actions act= new Actions(driver);
+		 act.scrollToElement(gp.contracedsc).perform();
+	     gp.checkBox.click();
+	      
+	     WebElement modal = driver.findElement(By.xpath("//div[@class='modal-box']"));
+	     modal.isDisplayed();
+	     Thread.sleep(3000);
+	     System.out.println("In order to uncheck the box, a 'are you sure' pop up  is displayed asking for a note to terminate the contract");
+		 utilityclassobject.gettest().log(Status.INFO,"In order to uncheck the box, a 'are you sure' pop up  is displayed asking for a note to terminate the contract\"");	 
+	           
+	  }
+	  
+	  @Test(dependsOnMethods = "TC_096VerifyContractedwithuncheck")
+	  public void TC_097VerifyContractedcheckboxwithTerminate()
+	  {
+		   WebElement textarea = driver.findElement(By.xpath("//textarea[@name='cancellationNote']"));
+	       textarea.isDisplayed();
+	       textarea.sendKeys("terminate the contact");
+	       gp.terminateContact.click();
+	       System.out.println("The generator will get terminated");
+		   utilityclassobject.gettest().log(Status.INFO,"The generator will get terminated");	 
+		                  
+	  }
+	  
+	  
+	  
+	  @Test(dependsOnMethods = "TC_097VerifyContractedcheckboxwithTerminate")
+	  public void TC_098VerifyContractedCheckboxwithStatus() throws InterruptedException
+	  {
+		  Thread.sleep(2000);
+		  Actions act= new Actions(driver);
+	      act.scrollToElement(gp.getGeneratorStatus()).perform();
+		  Thread.sleep(2000);
+		  WebElement status = driver.findElement(By.xpath("//span[text()='Canceled']"));
+		  status.isDisplayed();
+		  System.out.println(status);
+		  System.out.println("The status got changed from 'Prospect' to 'Contracted (Unscheduled)");
+		  utilityclassobject.gettest().log(Status.INFO,"The status got changed from 'Prospect' to 'Contracted (Unscheduled)");	       	
+		  
+	  }
+	  
+	  @Test(dependsOnMethods = "TC_098VerifyContractedCheckboxwithStatus")
+	  public void TC_099VerifyChildaccounttermination() throws InterruptedException
+	  {
+		    Actions act= new Actions(driver);
+	        act.scrollToElement(gp.contracedsc).perform();
+	        gp.checkBox.click();
+	          
+	        WebElement modalbox = driver.findElement(By.xpath("//div[@class='modal-box']"));
+	    	modalbox.isDisplayed();
+	    	Thread.sleep(30000);
+	    	Actions act1= new Actions(driver);
+		  	act1.moveToElement(gp.yesButton).click().perform();
+		  	Thread.sleep(20000);
+		  	
+		    act.scrollToElement(gp.contracedsc).perform();
+	        gp.checkBox.click();
+
+		      
+		     WebElement modal = driver.findElement(By.xpath("//div[@class='modal-box']"));
+		     modal.isDisplayed();
+		     Thread.sleep(3000);
+		     
+		     WebElement textarea = driver.findElement(By.xpath("//textarea[@name='cancellationNote']"));
+		     textarea.isDisplayed();
+		     textarea.sendKeys("terminate the contact");
+		     gp.terminateContact.click();
+		     System.out.println("The generator will get terminated");
+			 utilityclassobject.gettest().log(Status.INFO,"The generator will get terminated");	       	
+				  
+	  }
+	  
+	  
+	  @Test(dependsOnMethods = "TC_099VerifyChildaccounttermination")
+	  public void TC_100VerifyTerminategeneratorwihtoutnote() throws InterruptedException
+	  {
+		   Actions act= new Actions(driver);
+	        act.scrollToElement(gp.contracedsc).perform();
+	        gp.checkBox.click();
+	          
+	        WebElement modalbox = driver.findElement(By.xpath("//div[@class='modal-box']"));
+	    	modalbox.isDisplayed();
+	    	Thread.sleep(30000);
+	    	Actions act1= new Actions(driver);
+		  	act1.moveToElement(gp.yesButton).click().perform();
+		  	Thread.sleep(20000);
+		  	
+		  	 Actions act2= new Actions(driver);
+			 act2.scrollToElement(gp.contracedsc).perform();
+		     gp.checkBox.click();
+		      
+		     WebElement modal = driver.findElement(By.xpath("//div[@class='modal-box']"));
+		     modal.isDisplayed();
+		     Thread.sleep(3000);
+		     
+		     WebElement textarea = driver.findElement(By.xpath("//textarea[@name='cancellationNote']"));
+		     textarea.isDisplayed();
+		     gp.terminateContact.click();
+		     System.out.println("The system indicates to fill the field as it is mandatory");
+			 utilityclassobject.gettest().log(Status.INFO,"The system indicates to fill the field as it is mandatory");	
+	  }
+	  
+	  @Test(dependsOnMethods = "TC_100VerifyTerminategeneratorwihtoutnote")
+	  public void TC_101VerfiyCheckboxwithKeepthecontract() throws InterruptedException
+	  {   
+		  Thread.sleep(2000);
+		  WebElement textarea = driver.findElement(By.xpath("//textarea[@name='cancellationNote']"));
+		  textarea.isDisplayed();
+		  textarea.sendKeys("Terminate the contact");
+		  gp.getKeepthecontract().click();
+		  System.out.println("The generator will get remain contracted");
+		  utilityclassobject.gettest().log(Status.INFO,"The generator will get remain contracted");		  
+	  }
+	  
+	  
+	  @Test(dependsOnMethods = "TC_101VerfiyCheckboxwithKeepthecontract")
+	  public void TC_095VerifyContractedwithNobutton() throws InterruptedException
+	  { 
+		  Actions act= new Actions(driver);
+		  act.scrollToElement(gp.contracedsc).perform();
+		  gp.checkBox.click();
+	
+			      
+		  WebElement modal = driver.findElement(By.xpath("//div[@class='modal-box']"));
+		  modal.isDisplayed();
+		  Thread.sleep(3000);
+			     
+		  WebElement textarea = driver.findElement(By.xpath("//textarea[@name='cancellationNote']"));
+		  textarea.isDisplayed();
+		  textarea.sendKeys("terminate the contact");
+		   gp.terminateContact.click();
+			     
+		   Actions act2= new Actions(driver);
+		   act2.scrollToElement(gp.contracedsc).perform();
+			gp.checkBox.click();
+			          
+			 WebElement modalbox = driver.findElement(By.xpath("//div[@class='modal-box']"));
+			 modalbox.isDisplayed();
+			 Thread.sleep(30000);
+			  Actions act1= new Actions(driver);
+			  act1.moveToElement(gp.getNobutton()).click().perform();
+			  
+			  Actions act3= new Actions(driver);
+		        act3.scrollToElement(gp.contracedsc).perform();
+		        gp.checkBox.click();
+		          
+		        WebElement modalbox1 = driver.findElement(By.xpath("//div[@class='modal-box']"));
+		    	modalbox1.isDisplayed();
+		    	Thread.sleep(30000);
+		    	Actions act4= new Actions(driver);
+			  	act4.moveToElement(gp.yesButton).click().perform();
+			  	Thread.sleep(2000);  
+			  System.out.println("The checkbox will not get checked");
+			  utilityclassobject.gettest().log(Status.INFO,"The checkbox will not get checked");			     	       
+	  }
+	  
+	  
+	  @Test(dependsOnMethods = "TC_095VerifyContractedwithNobutton")
+	  public void TC_102VerifyGneratorStatusafterContracted() throws InterruptedException
+	  {	 
+		  	Actions act2= new Actions(driver);
+		      act2.scrollToElement(gp.getGeneratorStatus()).perform();
+			  Thread.sleep(2000);	
+		  	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			  gp.getGeneratorStatus().click();
+		
+			  String[] types = {"NIGO (Not In Good Order)", };
+			  
+			  Actions actions = new Actions(driver);
+			  
+			  for (String type : types) {
+			  
+			  WebElement typeElement = wait.until(
+			  ExpectedConditions.presenceOfElementLocated(
+			  By.xpath("//li[@role='option']//div[contains (text(),'"+type+"')]")));
+			  
+			  actions.moveToElement(typeElement).perform();
+			  
+			  Assert.assertTrue(typeElement.isDisplayed(), type + " is displayed");
+			  
+			  System.out.println("option like NIGO is present is present in the generator status");
+			  utilityclassobject.gettest().log(Status.INFO,"option like NIGO is present is present in the generator status");	
+			  
+		  	
+			  }	
+			  		  
+	  }
+	  
+	  @Test(dependsOnMethods = "TC_102VerifyGneratorStatusafterContracted")
+	  public void TC_103VerifyChangeinstatusafterContracted() throws InterruptedException
+	  {
+		  gp.getGeneratorStatus().click();
+		  gp.getGeneratorStatus().click();
+		  gp.getNigostatus().click();
+		  gp.Updatestatus();
+		  System.out.println("The user is able to change the status after generator gets contracted");
+		  utilityclassobject.gettest().log(Status.INFO,"The user is able to change the status after generator gets contracted");	  
+		  
+	  }  
+	  
+	 /* @Test(dependsOnMethods = "TC_103VerifyChangeinstatusafterContracted") public void
 	  TC_104VerifyAttentionwithAlphabets() throws EncryptedDocumentException,
 	  IOException { 
 		  
@@ -1367,12 +1663,13 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 	  "Attention text filed will accept specialcharacters"); }
 	  
 	  @Test(dependsOnMethods = "TC_106VerifyAttentionwithSpecialcharacters") public
-	  void TC_107VerifyStreetwithalphabets() throws EncryptedDocumentException,
-	  IOException { gp.getStreet().click(); gp.getStreet().sendKeys(Keys.CONTROL +
-	  "a"); gp.getStreet().sendKeys(Keys.DELETE); String input =
-	  elib.getDataFromExcel("GeneratorInformation", 28, 1);
-	  gp.getStreet().sendKeys(input); utilityclassobject.gettest().log(Status.INFO,
-	  "Street text filed will accept alphabets");
+	  void TC_107VerifyStreetwithalphabets() throws EncryptedDocumentException,IOException { 
+	gp.getStreet().click(); 
+	gp.getStreet().sendKeys(Keys.CONTROL +"a"); 
+	gp.getStreet().sendKeys(Keys.DELETE); 
+	String input = elib.getDataFromExcel("GeneratorInformation", 28, 1);
+	gp.getStreet().sendKeys(input); 
+	utilityclassobject.gettest().log(Status.INFO,"Street text filed will accept alphabets");
 	  
 	  }
 	  
@@ -1861,13 +2158,14 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 	  gp.getExt().sendKeys(Keys.CONTROL + "a"); gp.getExt().sendKeys(Keys.DELETE);
 	  System.out.println("The user is able to proceed as it is not mandatory");
 	  utilityclassobject.gettest().log(Status.INFO,
-	  "The user is able to proceed as it is not mandatory"); }
+	  "The user is able to proceed as it is not mandatory"); }*/
+	  
 	 
 
 	// need to write TC 150 to 158
 
 	// need to change the dependency
-	@Test(dependsOnMethods = "TC_149VerifyExtwithoutInput")
+	@Test(dependsOnMethods = "TC_103VerifyChangeinstatusafterContracted")
 	public void TC_159VerifybillingAttentionwithalphabets()
 			throws EncryptedDocumentException, IOException, InterruptedException {
 		gp = new GeneratorInformation1(driver);
@@ -2152,6 +2450,7 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 		utilityclassobject.gettest().log(Status.INFO, "The user is able to select the state");
 
 	}
+	
 
 	// need to write the TC_182
 

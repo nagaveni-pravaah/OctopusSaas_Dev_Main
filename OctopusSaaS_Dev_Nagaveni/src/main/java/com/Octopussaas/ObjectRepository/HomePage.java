@@ -1,5 +1,6 @@
 package com.Octopussaas.ObjectRepository;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -9,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class HomePage {
@@ -31,10 +34,33 @@ public class HomePage {
 	private WebElement transporterSettings;
 	@FindBy(xpath = "//a[text()='Billing Settings']")
 	private WebElement billingSettings;
+	@FindBy (xpath = "//input[@id='login-email']")
+	private WebElement loginEmail;
+	@FindBy (xpath = "//input[@id='login-password']")
+	private WebElement loginPassword;
+	@FindBy (xpath = "//button[@type='submit']")
+	private WebElement loginButton;
+	@FindBy (xpath = "//button[contains (text(),'Close')]")
+	private WebElement closeButton;
+	@FindBy (xpath = "(//div[contains(@class,'bg-white') and contains(@class,'max-w-md')]//button)[1]")
+	private WebElement noButton;
 	
-
 	
-	
+	public WebElement getNoButton() {
+		return noButton;
+	}
+	public WebElement getCloseButton() {
+		return closeButton;
+	}
+	public WebElement getLoginButton() {
+		return loginButton;
+	}
+	public WebElement getLoginPassword() {
+		return loginPassword;
+	}
+	public WebElement getLoginEmail() {
+		return loginEmail;
+	}
 	public WebElement getTransporterSettings() {
 		return transporterSettings;
 	}
@@ -299,12 +325,18 @@ public class HomePage {
 		
 		public void ChangePassword()
 		{
-			myProfile.click();
-			Actions act2 = new Actions(driver);
-			act2.moveToElement(mySettings).click().perform();
-			password.click();
-			WebElement popup = driver.findElement(By.xpath("//div[@class='bg-white z-20 grid gap-2 rounded-cardRadii max-w-md p-4 w-full min-h-fit']"));
-		    Assert.assertTrue(popup.isDisplayed(), "Change password popup is  visible");	
+			 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+
+			    // Verify Change Password popup
+			    WebElement popup = wait.until(ExpectedConditions.visibilityOfElementLocated(
+			        By.xpath("//div[contains(@class,'bg-white') and contains(@class,'max-w-md')]")
+			    ));
+
+			    Assert.assertTrue(popup.isDisplayed(), "Change password popup is visible");
+
+			    // Click No
+			    wait.until(ExpectedConditions.elementToBeClickable(noButton));
+			    noButton.click();
 		}
 		
 		public void RoleDropdown()
@@ -339,30 +371,40 @@ public class HomePage {
 		public void Admin() throws InterruptedException
 		{
 			roles.click();
+			roles.click();
 			Thread.sleep(1000);
 			adminRole.click();
+			roles.click();
+			roles.click();
 			adminRole.click();
 		}
 		
 		public void OctoConnectContact() throws InterruptedException
 		{
 			roles.click();
+			roles.click();
 			Thread.sleep(1000);
 			octoConnectRole.click();
+			roles.click();
+			roles.click();
 			octoConnectRole.click();	
 		}
 		
 		public void Standard() throws InterruptedException
 		{
 			roles.click();
+			roles.click();
 			Thread.sleep(1000);
 			adminRole.click();
+			roles.click();
+			roles.click();
 			Thread.sleep(1000);
 			standardRole.click();
 		}
 		
 		public void OctoConnectRequest() throws InterruptedException
 		{
+			notification.click();
 			notification.click();
 			Thread.sleep(2000);
 			octoConnectRequest.click();
@@ -372,6 +414,7 @@ public class HomePage {
 		public void Serviceoverview() throws InterruptedException
 		{
 			notification.click();
+			notification.click();
 			Thread.sleep(2000);
 			serviceOverview.click();
 			serviceOverview.click();
@@ -379,6 +422,7 @@ public class HomePage {
 		
 		public void SSRservice() throws InterruptedException
 		{
+			notification.click();
 			notification.click();
 			Thread.sleep(2000);
 			ssrService.click();
@@ -388,6 +432,7 @@ public class HomePage {
 		public void NewSSRservice() throws InterruptedException
 		{
 			notification.click();
+			notification.click();
 			Thread.sleep(2000);
 			newSSRservice.click();
 			newSSRservice.click();	
@@ -396,6 +441,7 @@ public class HomePage {
 		public void TerminationRequest() throws InterruptedException
 		{
 			notification.click();
+			notification.click();
 			Thread.sleep(2000);
 			terminationRequest.click();
 			terminationRequest.click();
@@ -403,6 +449,7 @@ public class HomePage {
 		
 		public void MutipleService() throws InterruptedException
 		{
+			notification.click();
 			notification.click();
 			Thread.sleep(2000);
 			octoConnectRequest.click();
@@ -418,6 +465,7 @@ public class HomePage {
 		
 		public void ServiceAtonce() throws InterruptedException
 		{
+			notification.click();
 			notification.click();
 			Thread.sleep(2000);
 			octoConnectRequest.click();

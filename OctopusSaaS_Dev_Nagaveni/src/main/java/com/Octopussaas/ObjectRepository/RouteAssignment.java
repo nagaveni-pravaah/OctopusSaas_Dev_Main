@@ -350,7 +350,7 @@ public class RouteAssignment {
 	private WebElement servicetxt;
 	@FindBy(xpath = "//button[text()='Send To Subcontractor']/../descendant::button")
 	private WebElement cancelbuttoninSSRbesideSendtosubcontractor;
-	@FindBy(xpath = "(//button[text()='Go Back to Generator Profile'])[3]")
+	@FindBy(xpath = "//a[contains (text(),'Generator Information')]")
 	private WebElement gobacktorouteassignmentpage;
 	@FindBy(xpath = "(//h3[text()='Generator Profile Not Setup'])[2]")
 	private WebElement generatorprofilenotsetuppopup;

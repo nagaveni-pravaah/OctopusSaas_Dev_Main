@@ -91,7 +91,7 @@ public class GeneretorInformation {
 	private WebElement Yesbtn;
 	@FindBy(xpath = "//div[@class='relative inline-block']")
 	private WebElement ellipse;
-	@FindBy(xpath = "//button[contains(text(),'Route Assignment')]")
+	@FindBy(xpath = "//a[text()='Route Assignment']")
 	private WebElement route;
 	@FindBy(xpath = "(//button[contains(text(),'✕')])[2]")
 	private WebElement cancelbtn;
@@ -349,13 +349,13 @@ public class GeneretorInformation {
 	public void Ellisebtn()
 	{
 		webDriverutility wlib = new webDriverutility();
-		Actions actions = new Actions(driver);
+		/*Actions actions = new Actions(driver);
 		// ensure ellipse menu is in view
 		actions.scrollToElement(ellipse).perform();
 		// wait and click ellipse
 		wlib.waitUntilElementClickable(driver, ellipse);
 		ellipse.click();
-		// wait and click route assignment option
+		// wait and click route assignment option*/
 		wlib.waitUntilElementClickable(driver, route);
 		route.click();
 	}
