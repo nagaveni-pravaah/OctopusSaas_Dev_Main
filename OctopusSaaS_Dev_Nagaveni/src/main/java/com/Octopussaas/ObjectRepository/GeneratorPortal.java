@@ -24,14 +24,104 @@ public class GeneratorPortal {
 	private WebElement generatorportalLink;
 	@FindBy (xpath = "//div[@class='w-full flex flex-col items-center max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100']")
 	private WebElement welcomepage;
-	@FindBy (xpath = "//input[@type='email']")
+	@FindBy (xpath = "//input[@placeholder='Enter Email']")
 	private WebElement emailtextfield;
 	@FindBy (xpath = "//input[@type='password']")
 	private WebElement passwordtextfield;
 	@FindBy (xpath = "//button[contains (text(),'Login')]")
 	private WebElement login;
+	@FindBy (xpath = "//input[@name='password']/following-sibling::button[@type='button']")
+	private WebElement eyeicon;
+	@FindBy (xpath = "//div[contains (text(),'Forgot Password?')]")
+	private WebElement forgotpassword;
+	@FindBy (xpath ="//input[@placeholder='Enter Email']")
+	private WebElement forgotpasswordEmail;
+	@FindBy (xpath = "//button[contains (text(),'Submit')]")
+	private WebElement submitButton;
+	@FindBy (xpath = "//div[contains (text(),'Back to Login')]")
+	private WebElement backtoLoginButton;
+	@FindBy (xpath = "//button[contains (text(),'New User Registration')]")
+	private WebElement newuserRegistrationButton;
+	@FindBy (xpath = "//div[@class='w-full flex flex-col items-center max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100']")
+	private WebElement userRegistrationPage;
+	@FindBy (xpath = "//input[@placeholder='First Name *']")
+	private WebElement firstname;
+	@FindBy (xpath = "//button[contains (text(),'Register Now')]")
+	private WebElement registernowButton;
+	@FindBy (xpath = "//input[@placeholder='Last Name *']")
+	private WebElement lastname;
+	@FindBy (xpath = "//input[@placeholder='Email Address *']")
+	private WebElement regEmail;
+	@FindBy (xpath = "//input[@type='tel']")
+	private WebElement phoneNumber;
+	@FindBy (xpath = "//input[@name='companyName']")
+	private WebElement companyname;
+	@FindBy (xpath = "//input[@placeholder='Service Location Address']")
+	private WebElement serivcelocationAddress;
+	@FindBy (xpath = "//input[@placeholder='Account Number (if known)']")
+	private WebElement accountNumber;
 	
 	
+	public WebElement getAccountNumber() {
+		return accountNumber;
+	}
+
+	public WebElement getSerivcelocationAddress() {
+		return serivcelocationAddress;
+	}
+
+	public WebElement getCompanyname() {
+		return companyname;
+	}
+
+	public WebElement getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public WebElement getRegEmail() {
+		return regEmail;
+	}
+
+	public WebElement getLastname() {
+		return lastname;
+	}
+
+	public WebElement getRegisternowButton() {
+		return registernowButton;
+	}
+
+	public WebElement getFirstname() {
+		return firstname;
+	}
+
+	public WebElement getUserRegistrationPage() {
+		return userRegistrationPage;
+	}
+
+	public WebElement getNewuserRegistrationButton() {
+		return newuserRegistrationButton;
+	}
+
+	public WebElement getBacktoLoginButton() {
+		return backtoLoginButton;
+	}
+
+	public WebElement getSubmitButton() {
+		return submitButton;
+	}
+
+	public WebElement getForgotpasswordEmail() {
+		return forgotpasswordEmail;
+	}
+
+	public WebElement getForgotpassword() {
+		return forgotpassword;
+	}
+
+	public WebElement getEyeicon() {
+		return eyeicon;
+	}
+
 	public WebElement getLogin() {
 		return login;
 	}

@@ -3,20 +3,25 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="GeneratorPortal_login.GeneratorPortal_login">
+      <class name="GeneratorPortal_login.NewGenerator_Portal">
         <methods>
           <include name="Ac"/>
-          <include name="TC_006VerifyGeneratorPortal_URLlink"/>
           <include name="Bc"/>
-          <include name="TC_002VerifyGeneratorportalloginisClickable"/>
-          <include name="TC_004VerifyGeneratorContacts_welcomepage"/>
-          <include name="TC_005VerifyGeneratorPortal_textfields"/>
+          <include name="TC_060VerifyGeneratorPortal_LastnamewithValidInput"/>
+          <include name="TC_079VerifyGeneratorPortal_ServicelocationwithNumbers"/>
           <include name="TC_003Generatorportallogin_Newtab"/>
-          <include name="TC_001VerifyGeneratorportalloginlink"/>
+          <include name="TC_048VerifyGeneratorPortal_NewuserRegistration"/>
           <include name="Bm"/>
+          <include name="TC_002VerifyGeneratorportalloginisClickable"/>
           <include name="Am"/>
+          <include name="TC_054VerifyGeneratorPortal_FirstnamewithvalidName"/>
+          <include name="TC_67VerifyGeneratorPortal_RegEmailwithValidInput"/>
+          <include name="TC_001VerifyGeneratorportalloginlink"/>
+          <include name="TC_085VerifyGeneratorPortal_AccountnumberwithoutInput"/>
+          <include name="TC_074VerifyGeneratorPortal_CompanynamewithAlphabets"/>
+          <include name="TC_069VerifyGeneratorPortal_PhonenumberwithNumbers"/>
         </methods>
-      </class> <!-- GeneratorPortal_login.GeneratorPortal_login -->
+      </class> <!-- GeneratorPortal_login.NewGenerator_Portal -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

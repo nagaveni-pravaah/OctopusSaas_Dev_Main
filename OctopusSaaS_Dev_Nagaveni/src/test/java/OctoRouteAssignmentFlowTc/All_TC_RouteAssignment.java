@@ -1455,6 +1455,7 @@ public class All_TC_RouteAssignment extends BaseClassForGEneratorContacts{
 		utilityclassobject.gettest().log(Status.INFO, "Scope of work  added successfully");
 		ras.getCanclebtninsubcontractor().click();
 		utilityclassobject.gettest().log(Status.INFO, "Subcontractor cancelled successfully");
+		
 		ras.RemoveServiceSchedule();
 		utilityclassobject.gettest().log(Status.INFO, "Service is removed successfully");
 

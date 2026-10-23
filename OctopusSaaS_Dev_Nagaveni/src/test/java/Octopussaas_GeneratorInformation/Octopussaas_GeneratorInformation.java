@@ -562,6 +562,8 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 	  public void TC_034GeneratorInformation_GeneratorwebsitewithAutosave() {
 	  gp.getGeneratorwebsite().click();
 	  gp.getGeneratorwebsite().sendKeys(Keys.CONTROL + "a");
+	  
+	  
 	  gp.getGeneratorwebsite().sendKeys(Keys.DELETE);
 	  gp.getGeneratorwebsite().sendKeys("https://www.facebook.com");
 	  utilityclassobject.gettest().log(Status.PASS,"The field accepts the URL in the valid format and autosave"); }
@@ -636,6 +638,7 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 		  gp.getServiceLocation().click();
 			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
+		
 			WebElement dropdown = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(
 			                By.xpath("//ul[@role='listbox']")));
@@ -2395,7 +2398,7 @@ public class Octopussaas_GeneratorInformation extends BaseClassForGEneratorConta
 		System.out.println("City text field will accept input and autosave");
 		utilityclassobject.gettest().log(Status.INFO, "City text field will accept input and autosave");
 
-	}
+	}	
 
 	/*
 	 * @Test public void TC_179VerifybillingstatewithInput() throws
