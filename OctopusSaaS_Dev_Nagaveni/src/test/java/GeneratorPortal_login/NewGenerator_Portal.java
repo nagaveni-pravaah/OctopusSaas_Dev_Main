@@ -175,5 +175,12 @@ public class NewGenerator_Portal extends BaseClassForGEneratorContacts{
 		  utilityclassobject.gettest().log(Status.PASS,"Not displayed any error message it is not mandatory field"); 
 	}
 	
+	@Test
+	public void TC_086()
+	{
+		System.out.println("Hi");
+	}
+	
+	
 
 }
