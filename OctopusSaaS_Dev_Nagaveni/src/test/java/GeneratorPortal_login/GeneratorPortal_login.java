@@ -9,6 +9,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Random;
 import java.util.Set;
 
 import org.apache.poi.EncryptedDocumentException;
@@ -40,7 +41,7 @@ import io.reactivex.rxjava3.functions.Action;
 public class GeneratorPortal_login extends BaseClassForGEneratorContacts{
 	GeneratorPortal gpn;
 	ExcelUtility elib ;
-	
+	String input;
 	
 	@Test
 	public void TC_001VerifyGeneratorportalloginlink() throws InterruptedException
@@ -759,7 +760,7 @@ public class GeneratorPortal_login extends BaseClassForGEneratorContacts{
 		gpn.getRegEmail().click();
 		gpn.getRegEmail().sendKeys(Keys.CONTROL+"a");
 		gpn.getRegEmail().sendKeys(Keys.DELETE);
-		String input = elib.getDataFromExcel("GeneratorPortal", 7, 2);
+		String input = elib.getDataFromExcel("GeneratorPortal", 1, 4);
 		gpn.getRegEmail().sendKeys(input);
 		System.out.println("A part of following '@' should not contain the symbol '@', ',','#'' etc suggestion is displayed");
 		utilityclassobject.gettest().log(Status.PASS,"A part of following '@' should not contain the symbol '@', ',','#'' etc suggestion is displayed");
@@ -998,8 +999,18 @@ public class GeneratorPortal_login extends BaseClassForGEneratorContacts{
 			  gpn.getAccountNumber().sendKeys(Keys.DELETE); 
 			  String input = elib.getDataFromExcel("GeneratorPortal", 28, 1);
 			  gpn.getAccountNumber().sendKeys(input); 
-			  System.out.println("Account number text field accepts alphabets");
-			  utilityclassobject.gettest().log(Status.PASS,"Account number text field accepts alphabets"); 
+			  String actualValue = gpn.getAccountNumber().getAttribute("value");
+			  
+			  if(actualValue.matches(".*[a-zA-Z].*")) 
+			  {
+			  System.out.println("Account number text field accepted alphabets. :PASS");
+			  utilityclassobject.gettest().log(Status.FAIL,"Account number text field accepted alphabets."); 
+			  } 
+			  else { System.out.println("Account number text field does not accept alphabets. : PASS");
+			  utilityclassobject.gettest().log(Status.PASS,"Account number text field does not accept alphabets."); 
+			  }
+			  System.out.println("Account number text field does not accept alphabets");
+			  utilityclassobject.gettest().log(Status.PASS,"Account number text field does not accept alphabet."); 
 			
 		}
 		
@@ -1021,10 +1032,20 @@ public class GeneratorPortal_login extends BaseClassForGEneratorContacts{
 			  gpn.getAccountNumber().click();
 			  gpn.getAccountNumber().sendKeys(Keys.CONTROL + "a");
 			  gpn.getAccountNumber().sendKeys(Keys.DELETE); 
-			  String input = elib.getDataFromExcel("GeneratorPortal", 28, 3);
+			  String input = elib.getDataFromExcel("GeneratorPortal", 28, 1);
 			  gpn.getAccountNumber().sendKeys(input); 
-			  System.out.println("Account number text field accepts specialcharacters");
-			  utilityclassobject.gettest().log(Status.PASS,"Account number text field accepts specialcharacters"); 
+			  String actualValue = gpn.getAccountNumber().getAttribute("value");
+			  
+			  if(actualValue.matches(".*[#-$%-^&].*")) 
+			  {
+			  System.out.println("Account number text field accepted alphabets. :PASS");
+			  utilityclassobject.gettest().log(Status.FAIL,"Account number text field accepted alphabets."); 
+			  } 
+			  else { System.out.println("Account number text field does not accept alphabets. : PASS");
+			  utilityclassobject.gettest().log(Status.PASS,"Account number text field does not accept alphabets."); 
+			  }
+			  System.out.println("Account number text field does not accept alphabets");
+			  utilityclassobject.gettest().log(Status.PASS,"Account number text field does not accept alphabet."); 
 		}
 		
 		@Test(dependsOnMethods = "TC_084VeriyGeneratorPortal_AccountnumberwithSpecialcharacters")
@@ -1037,6 +1058,20 @@ public class GeneratorPortal_login extends BaseClassForGEneratorContacts{
 			  System.out.println("Not displayed any error message it is not mandatory field");
 			  utilityclassobject.gettest().log(Status.PASS,"Not displayed any error message it is not mandatory field"); 
 		}
+		
+		@Test(dependsOnMethods = "TC_085VerifyGeneratorPortal_AccountnumberwithoutInput")
+		public void TC_086VerifyGeneatorPortal_Alreadyhaveanaccount()
+		{
+			gpn.getAlreadyhaveanaccount().click();
+			gpn.getWelcomepage().isDisplayed();
+			System.out.println("Not displayed any error message it is not mandatory field");
+			utilityclassobject.gettest().log(Status.PASS,"Not displayed any error message it is not mandatory field"); 
+			
+		}
+		
+		
+		
+		
 		
 		
 		

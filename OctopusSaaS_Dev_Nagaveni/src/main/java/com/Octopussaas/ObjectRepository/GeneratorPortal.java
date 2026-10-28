@@ -60,8 +60,14 @@ public class GeneratorPortal {
 	private WebElement serivcelocationAddress;
 	@FindBy (xpath = "//input[@placeholder='Account Number (if known)']")
 	private WebElement accountNumber;
+	@FindBy (xpath = "//div[contains (text(),'Already have an account? Login')]")
+	private WebElement alreadyhaveanaccount;
 	
 	
+	public WebElement getAlreadyhaveanaccount() {
+		return alreadyhaveanaccount;
+	}
+
 	public WebElement getAccountNumber() {
 		return accountNumber;
 	}
